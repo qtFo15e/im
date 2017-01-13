@@ -1,5 +1,7 @@
 <template>
-    <div><el-form ref="form" :model="form" label-width="90px">
+    <div>
+      <h3>个人信息</h3>
+      <el-form ref="form" :model="form" label-width="90px">
         <el-form-item
             label='性别'
             prop="sex">
@@ -34,7 +36,7 @@
             ></el-date-picker>
         </el-form-item>
         <el-form-item
-            label="个人签名sda"
+            label="个人签名"
             prop="signature">
             <el-input
                     type="textarea"

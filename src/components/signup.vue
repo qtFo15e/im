@@ -42,7 +42,6 @@
         placeholder="16个字母或8个汉字之内" ></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="default" @click="formReset">重置</el-button>
       <el-button type="primary" @click="formSubmit">立即注册</el-button>
     </el-form-item>
     <el-form-item>
@@ -141,9 +140,6 @@
       methods: {
           formSubmit () {
               this.$refs.form.validate()
-          },
-          formReset () {
-              this.$refs.form.resetFields()
           }
       }
   }
