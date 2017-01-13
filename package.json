@@ -21,6 +21,7 @@
     "element-ui": "^1.1.2",
     "express-session": "^1.14.2",
     "express-webpack-assets": "0.0.2",
+    "extract-text-webpack-plugin": "^1.0.1",
     "ioredis": "^2.5.0",
     "jade": "^1.11.0",
     "moment": "^2.17.1",
@@ -37,7 +38,7 @@
     "vue-resource": "^1.0.3",
     "vue-router": "^2.1.1",
     "vuex": "^2.1.1",
-    "webpack": "^1.14.0",
+    "webpack": "^2.2.0-rc.4",
     "webpack-dev-middleware": "^1.9.0",
     "webpack-hot-middleware": "^2.15.0"
   },
