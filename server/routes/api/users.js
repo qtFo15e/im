@@ -10,7 +10,16 @@ router.get('/', function(req, res, next) {
 });
 
 router.post( "/signup", function ( req, res ) {
+  let { password, email, name } = req.body
 
+  req.db
+    .multi()
+    .set( email + req.ns.SEPARATOR + req.ns.AUTH, password )
+    .hset( email + req.ns.SEPARATOR + req.ns.PROFILE, "name", name )
+    .exec()
+    .then( function () {
+      res.send( name )
+    } )
 } )
 
 
@@ -53,11 +62,11 @@ router.post( '/login', function ( req, res ) {
     .get( email + req.ns.SEPARATOR +  req.ns.AUTH )
     .then( function ( userPassword ) {
       if ( userPassword === null || loginPassword !== userPassword ) {
-        res
-          .status( 400 )
-          .send( "账号不存在或密码错误" )
+        res.status( 400 ).send( "账号不存在或密码错误" )
         return
       }
+
+      req.session.user = email
 
       req.db
         .hgetall( email + req.ns.SEPARATOR + req.ns.PROFILE )
@@ -68,5 +77,9 @@ router.post( '/login', function ( req, res ) {
 } )
 
 
+router.get( '/logout', function ( req, res ) {
+  req.session.destroy()
+  res.clearCookie( 'sessionID' ).send( "退出成功" )
+} )
 
 module.exports = router;

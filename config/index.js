@@ -35,9 +35,13 @@ module.exports = {
     redisNamespace:{
       AUTH: "AUTH",
       PROFILE: 'PROFILE',
-      SESSION: 'SESSION',
+      SESSION: '_SESSION',
       BINARY: 'BINARY',
       SEPARATOR:':'
-    }
+    },
+    secret: "123456",
+    needLoginSites:[
+      "/api/profile/",
+    ]
   }
 }

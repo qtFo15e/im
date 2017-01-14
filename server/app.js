@@ -19,7 +19,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.raw())
 app.use(bodyParser.text())
-app.use(cookieParser("123456"));
+app.use(cookieParser( config.myDev.secret ));
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -31,17 +31,35 @@ app.use( session( {
   cookie: {
     expires: new Date( new Date().getTime() + 36000000 ),
   },
-  secret: '123456',
+  secret: config.myDev.secret,
   name:"sessionID",
   resave: false,
   saveUninitialized: false,
   store: new RedisStore( {
     host:"127.0.0.1",
     port: "6379",
-    prefix: "session:",
-    db:6
+    prefix: config.myDev.SESSION + ":",
+
   }  ),
 } ) )
+
+//登录拦截
+//需要  有
+//需要  没有
+//不需要  没有
+//不需要  有
+app.use( function ( req, res, next ) {
+  let isNeedLogin = config.myDev.needLoginSites.some( function ( item ) {
+    return req.path.startsWith( item )
+  } )
+
+  if ( isNeedLogin && !req.session.password ) {
+    res.status( 400 ).send( '请先登录' )
+  } else {
+    next()
+  }
+
+} )
 
 
 app.use( function ( req, res, next ) {

@@ -1,7 +1,6 @@
 <template>
   <div>
     <div>
-
     </div>
     <div>
       <h3>账号登录</h3>
@@ -34,15 +33,27 @@
             v-model="form.captcha"
             placeholder="验证码">
           </el-input>
-          <img :src="captchaSrc" style="border: 1px solid #c0ccda;border-radius: 3px">
-          <el-button type="text" @click="changeCaptchaImg">换一张</el-button>
+          <img
+            :src="captchaSrc"
+            style="border: 1px solid #c0ccda;border-radius: 3px"/>
+          <el-button
+            type="text"
+            @click="changeCaptchaImg">
+            换一张</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="formSubmit">登录</el-button>
+          <el-button
+            type="primary"
+            @click="formSubmit"
+          >登录</el-button>
         </el-form-item>
         <el-form-item>
-          <el-checkbox v-model="form.savePassword" >记住密码</el-checkbox>
-          <el-button type="text" >立即注册</el-button>
+          <el-checkbox
+            v-model="form.savePassword"
+          >记住密码</el-checkbox>
+          <el-button
+            type="text">
+            立即注册</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -51,77 +62,81 @@
 </template>
 
 <script>
-    export default {
-        data () {
-            return {
-                form: {
-                    email:"",
-                    password:"",
-                    captcha:"",
-                    savePassword: true
-                },
-                captchaSrc:"http://localhost:3000/api/user/captcha/init",
-                rules: {
-                    email: [
-                        {
-                            required: true,
-                            message: "请输入邮箱",
-                            trigger: "blur"
-                        },
-                        {
-                            validator: ( rule, value, callBack ) => {
-                                var emailReg = /[\d\w]+?@\w+?/
-                                if ( !emailReg.test( value ) ) {
-                                    callBack( new Error( '请输入合法的邮箱' ) )
-                                } else {
-                                    callBack()
-                                }
-                            },
-                            trigger: 'blur'
-                        }
-                    ],
-                    password: [
-                        {
-                            required: true,
-                            message: "请输入密码",
-                            trigger: "blur"
-                        },
-                        {
-                            validator:  (rule, value, callback) => {
-                                var passwordReg = /[\d\w]{6,10}/
-                                if ( !passwordReg.test( value ) ) {
-                                    callback( new Error( '请输入6-10个字母或数字' ) )
-                                } else {
-                                    callback()
-                                }
-                            },
-                            trigger: "blur"
-                        }
-                    ],
-                    captcha: [
-                        {
-                            required: true,
-                            message: "请输入验证码",
-                            trigger: "blur"
-                        },
-                    ],
-                }
-            }
+  export default {
+    data () {
+      return {
+        form: {
+          email: "",
+          password: "",
+          captcha: "",
+          savePassword: true
         },
-
-        methods: {
-            formSubmit () {
-
-              this.$refs.loginForm.validate( ( valid ) => {
-                if ( valid ) {
-                  this.$http.post( "/api/user/login", this.form, function ( res ) {
-                  } )
+        captchaSrc: "http://localhost:3000/api/user/captcha/init",
+        rules: {
+          email: [
+            {
+              validator: (rule, value, callback) => {
+                if (value === "" || value === undefined ) {
+                  callback( new Error( "请输入邮箱" ) )
+                  return
                 }
-              } )
-            },
-            changeCaptchaImg () {
-                this.captchaSrc =  "http://localhost:3000/api/user/captcha/" + Math.random()
+
+                var emailReg = /[\d\w]+?@\w+?/
+                if (!emailReg.test(value)) {
+                  callback(new Error('请输入合法的邮箱'))
+                } else {
+                  callback()
+                }
+              },
+              trigger: 'blur'
             }
+          ],
+          password: [
+            {
+              validator: (rule, value, callback) => {
+              	if (value === "" || value === undefined ) {
+              		callback( new Error( "请输入密码" ) )
+              		return
+                }
+                var passwordReg = /[\d\w]{6,10}/
+                if (!passwordReg.test(value)) {
+                  callback(new Error('请输入6-10个字母或数字'))
+                } else {
+                  callback()
+                }
+              },
+              trigger: "blur"
+            }
+          ],
+          captcha: [
+            {
+              validator: (rule, value, callback) => {
+              	if (value === "" || value === undefined ) {
+              		callback( new Error('请输入验证码') )
+                } else {
+              		callback()
+                }
+              }
+            }
+          ],
         }
+      }
+    },
+
+    methods: {
+      formSubmit () {
+      	var self = this
+        this.$refs.loginForm.validate((valid) => {
+          if (valid) {
+            self.$http.post("/api/user/login", self.form, function (res) {
+            })
+          }
+        })
+      },
+      changeCaptchaImg () {
+        this.captchaSrc = "http://localhost:3000/api/user/captcha/" + Math.random()
+      }
     }
+  }
+
 </script>
