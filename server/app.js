@@ -4,7 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var session = require('express-session')
+var RedisStore = require('connect-redis')(session);
 
 var app = express();
 
@@ -19,9 +20,25 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.raw())
 app.use(bodyParser.text())
-app.use(cookieParser());
+app.use(cookieParser("123456"));
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use( session( {
+  //todo expries区别
+  cookie: {
+    expires: new Date( new Date().getTime() + 36000000 ),
+  },
+  secret: '123456',
+  name:"sessionID",
+  resave: true,
+  saveUninitialized: false,
+  store: new RedisStore( {
+    host:"127.0.0.1",
+    port: "6379",
+    prefix: "session:",
+    db:6
+  }  ),
+} ) )
 
 
 app.use( function ( req, res, next ) {
@@ -63,10 +80,9 @@ app.use(hotMiddleware);
 
 
 app.post( "/test", function ( req, res ) {
-  req.db.pipeline().select( req.body.id ).hmset(req.body.id, req.body).exec( function ( err, res ) {
-    console.log( res )
-  })
+
 } )
+
 
 app.use( "/api", require( "./routes/api/index" ))
 

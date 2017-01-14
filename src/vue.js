@@ -8,8 +8,9 @@ import Vuex from 'vuex';
 import VueResource from 'vue-resource';
 import vueRouter from 'vue-router';
 import ElementUI from 'element-ui';
+import locale from './config/element.lang.conf'
 
-Vue.use( ElementUI )
+Vue.use( ElementUI, { locale } )
 Vue.use(Vuex);
 Vue.use(VueResource);
 Vue.use(vueRouter);

@@ -6,7 +6,15 @@ const _ = require( "underscore" )
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  var session = req.session
+  if ( session.views ) {
+    session.views++
+    res.status(200).send( session.views )
+    return
+  } else {
+    session.views = 1
+    res.status(200).send( "start" )
+  }
 });
 
 router.post( "/signup", function ( req, res ) {
@@ -62,15 +70,7 @@ router.post( '/login', function ( req, res ) {
         return
       }
       // todo 返回的信息可能需要过滤，部分信息只在内部使用res
-      res
-        .cookie( "sessionID", "456", {
-          //修正市区后，设置两小时的有效时间
-          //todo 局域网IP
-          domain: "localhost",
-          expires: new Date( new Date().getTime() + 36000000 ),
-          httpOnly: true,
-        } )
-        .send( user )
+      res.send( user )
     } )
 } )
 
