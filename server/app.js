@@ -4,8 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var session = require('express-session')
-var RedisStore = require('connect-redis')(session);
+const config = require( "../config/index" )
 
 var app = express();
 
@@ -23,6 +22,10 @@ app.use(bodyParser.text())
 app.use(cookieParser("123456"));
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+
+//todo 合并到一个数据库客户端
+var session = require('express-session')
+var RedisStore = require('connect-redis')(session);
 app.use( session( {
   //todo expries区别
   cookie: {
@@ -30,7 +33,7 @@ app.use( session( {
   },
   secret: '123456',
   name:"sessionID",
-  resave: true,
+  resave: false,
   saveUninitialized: false,
   store: new RedisStore( {
     host:"127.0.0.1",
@@ -42,8 +45,9 @@ app.use( session( {
 
 
 app.use( function ( req, res, next ) {
+
   req.db = require( "../db/redis/index" )
-  // req.udb = require( "../db/nedb" )
+  req.ns = config.myDev.redisNamespace
 
   req.util = require( '../util/index' )
   next()

@@ -3,13 +3,14 @@
  */
 const Redis = require( 'ioredis' )
 const redis = new Redis()
+const ns = require( "../../../config/index" ).myDev.redisNamespace
+
 
 redis
   .multi()
-  .select( 0 )
-  .hmset( "chimeng@qq.com", {
+  .set( "chimeng@qq.com" + ns.SEPARATOR + ns.AUTH , "123456" )
+  .hmset( "chimeng@qq.com" + ns.SEPARATOR + ns.PROFILE , {
       name: "chimeng",
       age: "45",
-      password: "123456"
   } )
   .exec( redis.print )

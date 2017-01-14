@@ -6,15 +6,7 @@ const _ = require( "underscore" )
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  var session = req.session
-  if ( session.views ) {
-    session.views++
-    res.status(200).send( session.views )
-    return
-  } else {
-    session.views = 1
-    res.status(200).send( "start" )
-  }
+
 });
 
 router.post( "/signup", function ( req, res ) {
@@ -52,25 +44,26 @@ router.get( '/captcha/:user_id', function ( req, res ) {
     res.type('png').send( imgBase64 );
 } )
 
+
 router.post( '/login', function ( req, res ) {
   //todo 有效性检查待添加
-  let { email , password } = req.body
+  let { email , password: loginPassword } = req.body
 
   req.db
-    .multi()
-    .select( 0 )
-    .hgetall( req.body.email )
-    .exec()
-    .then( function ( arr ) {
-      let user = req.util.getLastReply( arr )
-      if ( user === null || user.password !== password ) {
+    .get( email + req.ns.SEPARATOR +  req.ns.AUTH )
+    .then( function ( userPassword ) {
+      if ( userPassword === null || loginPassword !== userPassword ) {
         res
           .status( 400 )
           .send( "账号不存在或密码错误" )
         return
       }
-      // todo 返回的信息可能需要过滤，部分信息只在内部使用res
-      res.send( user )
+
+      req.db
+        .hgetall( email + req.ns.SEPARATOR + req.ns.PROFILE )
+        .then( function ( profile ) {
+          res.send( profile )
+        } )
     } )
 } )
 

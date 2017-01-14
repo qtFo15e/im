@@ -32,6 +32,12 @@ module.exports = {
   myDev:{
     domain: "http://localhost",
     port:"3000",
-
+    redisNamespace:{
+      AUTH: "AUTH",
+      PROFILE: 'PROFILE',
+      SESSION: 'SESSION',
+      BINARY: 'BINARY',
+      SEPARATOR:':'
+    }
   }
 }
