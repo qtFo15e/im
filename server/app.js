@@ -20,17 +20,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.raw())
 app.use(bodyParser.text())
 app.use(cookieParser( config.myDev.secret ));
-app.use(require('stylus').middleware(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'public')));
+//todo 暂时用不到
+// app.use(require('stylus').middleware(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 //todo 合并到一个数据库客户端
 var session = require('express-session')
 var RedisStore = require('connect-redis')(session);
 app.use( session( {
-  //todo expries区别
-  cookie: {
-    expires: new Date( new Date().getTime() + 36000000 ),
-  },
   secret: config.myDev.secret,
   name:"sessionID",
   resave: false,
@@ -38,32 +35,28 @@ app.use( session( {
   store: new RedisStore( {
     host:"127.0.0.1",
     port: "6379",
-    prefix: config.myDev.SESSION + ":",
-
+    prefix: config.myDev.redisNamespace.SESSION + ":",
+    disableTTL: 36000000,
   }  ),
 } ) )
 
 //登录拦截
-//需要  有
-//需要  没有
-//不需要  没有
-//不需要  有
 app.use( function ( req, res, next ) {
   let isNeedLogin = config.myDev.needLoginSites.some( function ( item ) {
     return req.path.startsWith( item )
   } )
 
-  if ( isNeedLogin && !req.session.password ) {
-    res.status( 400 ).send( '请先登录' )
+  if ( isNeedLogin && !req.session.user ) {
+    res.redirect('/');
   } else {
     next()
   }
-
 } )
+
+//todo 跨站请求伪造： 方式：利用跨站共享cookie原理，伪装用户做出操作，cookie限制domain??
 
 
 app.use( function ( req, res, next ) {
-
   req.db = require( "../db/redis/index" )
   req.ns = config.myDev.redisNamespace
 

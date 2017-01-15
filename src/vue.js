@@ -10,6 +10,8 @@ import vueRouter from 'vue-router';
 import ElementUI from 'element-ui';
 import locale from './config/element.lang.conf'
 
+Vue.config.debug = true
+
 Vue.use( ElementUI, { locale } )
 Vue.use(Vuex);
 Vue.use(VueResource);

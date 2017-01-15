@@ -36,6 +36,7 @@ module.exports = {
       AUTH: "AUTH",
       PROFILE: 'PROFILE',
       SESSION: '_SESSION',
+      PHOTO:'PHOTO',
       BINARY: 'BINARY',
       SEPARATOR:':'
     },

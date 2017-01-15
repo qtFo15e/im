@@ -3,6 +3,8 @@
     <signup></signup>
     <login></login>
     <profile></profile>
+    <photo></photo>
+    <profile-edit></profile-edit>
   </div>
 </template>
 
@@ -10,13 +12,17 @@
 import signup from './components/signup.vue'
 import login from './components/login.vue'
 import profile from './components/profile.vue'
+import profileEdit from './components/profileEdit.vue'
+import photo from  './components/photo.vue'
 
 export default {
   name: 'app',
   components: {
     signup,
     login,
-    profile
+    profile,
+    photo,
+    profileEdit,
   }
 }
 </script>

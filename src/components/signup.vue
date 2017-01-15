@@ -1,8 +1,6 @@
 <template>
   <el-card class="box-card" style="width: 400px">
-    <div slot="header" class="clearfix" style="background: #20a0ff">
-      <span style="line-height: 36px;">注册账号</span>
-    </div>
+    <h3 style="line-height: 36px;background: #20a0ff">注册账号</h3>
     <el-form
       :model="form"
       :rules="rules"
@@ -42,10 +40,8 @@
           placeholder="16个字母或8个汉字之内"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="formSubmit">立即注册</el-button>
-      </el-form-item>
-      <el-form-item>
         <el-button type="text" @click="toLogin">已有账号？登录</el-button>
+        <el-button type="primary" @click="formSubmit">立即注册</el-button>
       </el-form-item>
     </el-form>
   </el-card>

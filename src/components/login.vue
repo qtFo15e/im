@@ -2,8 +2,8 @@
   <div>
     <div>
     </div>
-    <div>
-      <h3>账号登录</h3>
+    <el-card style="width: 400px">
+      <h3  style="line-height: 36px;background: #20a0ff">账号登录</h3>
       <el-form
         ref="loginForm"
         :model="form"
@@ -29,34 +29,43 @@
         <el-form-item
           prop="captcha"
           label="验证码">
-          <el-input
-            v-model="form.captcha"
-            placeholder="验证码">
-          </el-input>
-          <img
-            :src="captchaSrc"
-            style="border: 1px solid #c0ccda;border-radius: 3px"/>
-          <el-button
-            type="text"
-            @click="changeCaptchaImg">
-            换一张</el-button>
-        </el-form-item>
-        <el-form-item>
-          <el-button
-            type="primary"
-            @click="formSubmit"
-          >登录</el-button>
+          <el-col :span="8">
+            <el-input
+              v-model="form.captcha"
+              placeholder="验证码">
+            </el-input>
+          </el-col>
+          <el-col :span="8">
+            <img
+              :src="captchaSrc"
+              style="border: 1px solid #c0ccda;border-radius: 3px"/>
+          </el-col>
+          <el-col :span="8">
+            <el-button
+              type="text"
+              @click="changeCaptchaImg">
+              换一张</el-button>
+          </el-col>
+
+
+
         </el-form-item>
         <el-form-item>
           <el-checkbox
             v-model="form.savePassword"
           >记住密码</el-checkbox>
           <el-button
+            type="primary"
+            @click="formSubmit"
+          >登录</el-button>
+        </el-form-item>
+        <el-form-item>
+          <el-button
             type="text">
             立即注册</el-button>
         </el-form-item>
       </el-form>
-    </div>
+    </el-card>
   </div>
 
 </template>
