@@ -5,6 +5,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const config = require( "../config/index" )
+var router = require( './routes/api/index' )
+var redis = require( "../db/redis/index" )
+var mongo = require( '../db/mongodb/index' )
+var util = require( '../util/index' )
 
 var app = express();
 
@@ -27,7 +31,7 @@ app.use(cookieParser( config.myDev.secret ));
 //todo 合并到一个数据库客户端
 var session = require('express-session')
 var RedisStore = require('connect-redis')(session);
-app.use( session( {
+var sessionInstance = session( {
   secret: config.myDev.secret,
   name:"sessionID",
   resave: false,
@@ -38,7 +42,11 @@ app.use( session( {
     prefix: config.myDev.redisNamespace.SESSION + ":",
     disableTTL: 36000000,
   }  ),
-} ) )
+} )
+app.use( sessionInstance )
+const sharedsession = require("express-socket.io-session");
+
+
 
 //登录拦截
 app.use( function ( req, res, next ) {
@@ -57,11 +65,12 @@ app.use( function ( req, res, next ) {
 
 
 app.use( function ( req, res, next ) {
-  req.db = require( "../db/redis/index" )
-  req.ns = config.myDev.redisNamespace
-
-  req.util = require( '../util/index' )
-  next()
+  req.redis = redis
+  req.util = util
+  mongo.then( function ( db ) {
+    req.mongo = db
+    next()
+  } )
 } )
 
 
@@ -99,34 +108,32 @@ app.post( "/test", function ( req, res ) {
 } )
 
 
-app.use( "/api", require( "./routes/api/index" ))
+app.use( "/api", router.expressRouter)
 
 app.get( "/", require( "./routes/index" ) )
 
 
 
 
-//
-// // catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   var err = new Error('Not Found');
-//   err.status = 404;
-//   next(err);
-// });
-
-// // error handler
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
-//
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render('error');
-// });
+var debug = require('debug')('im:server');
+var http = require('http');
+var port = '3000';
+var server = http.createServer(app).listen(port);
+var io = require( "socket.io" )( server )
+io.use(sharedsession( sessionInstance ));
 
 
+io.on( "connection" , function ( socket ) {
+  io.redis = redis
+  mongo.then( function ( db ) {
+    io.mongo = db
+    socket.on( "message", function ( data, callback  ) {
+      router.ioRouter( io, socket, data, callback )
+    } )
+  } )
+  // io.mongo._user = req.mongo.collection( "user" )
+  // io.mongo._group = req.mongo.collection( "group" )
+  io.ns = config.myDev.redisNamespace
 
+})
 
-
-module.exports = app;

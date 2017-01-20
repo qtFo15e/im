@@ -38,7 +38,12 @@ module.exports = {
       SESSION: '_SESSION',
       PHOTO:'PHOTO',
       BINARY: 'BINARY',
-      SEPARATOR:':'
+      SEPARATOR:':',
+      CONTACTS: 'CONTACTS',
+      NEWGROUPID: 'NEWGROUPID',
+      GROUP: '_GROUP',
+      INTRODUCTION: 'INTRODUCTION',
+      NUMBERS: 'NUMBERS'
     },
     secret: "123456",
     needLoginSites:[

@@ -10,16 +10,17 @@ router.get('/', function(req, res, next) {
 });
 
 router.post( "/signup", function ( req, res ) {
-  let { password, email, name } = req.body
-
-  req.db
-    .multi()
-    .set( email + req.ns.SEPARATOR + req.ns.AUTH, password )
-    .hset( email + req.ns.SEPARATOR + req.ns.PROFILE, "name", name )
-    .exec()
-    .then( function () {
-      res.send( name )
-    } )
+  req.mongo.collection( 'user' ).insertOne( {
+    email: req.body.email,
+    password: req.body.password,
+    profile: {
+      name: req.body.name
+    },
+    contacts: [],
+    imGroup: [],
+  }, function () {
+    res.end()
+  } )
 } )
 
 
@@ -62,24 +63,19 @@ router.post( '/login', function ( req, res ) {
   //todo 有效性检查待添加
   let { email , password: loginPassword, captcha } = req.body
 
-  req.db
-    .get( email + req.ns.SEPARATOR +  req.ns.AUTH )
-    .then( function ( userPassword ) {
-      if ( userPassword === null || loginPassword !== userPassword  ) {
-        res.status( 400 ).send( "账号不存在或密码错误" )
-      } else if ( captcha !== req.session.captcha ) {
-        res.status( 400 ).send( "验证码错误" )
-      } else {
-        if ( req.body.savePassword ) {
-          req.session.cookie.expires = new Date( new Date().getTime() + 36000000 )
-        }
-        req.session.user = email
-        req.db.hgetall( email + req.ns.SEPARATOR + req.ns.PROFILE )
-          .then( function ( profile ) {
-            res.send( profile )
-          } )
+  req.mongo.collection( 'user' ).findOne( { email: req.body.email }, { fields: { _id: 0 } }, function ( err, doc ) {
+    if ( doc === null || loginPassword !== doc.password  ) {
+      res.status( 400 ).send( "账号不存在或密码错误" )
+    } else if ( captcha !== req.session.captcha ) {
+      res.status( 400 ).send( "验证码错误" )
+    } else {
+      if ( req.body.savePassword ) {
+        req.session.cookie.expires = new Date( new Date().getTime() + 36000000 )
       }
-    } )
+      req.session.email = email
+      res.send( _.omit(doc, 'password' ) )
+    }
+  } )
 } )
 
 

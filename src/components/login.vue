@@ -46,9 +46,6 @@
               @click="changeCaptchaImg">
               换一张</el-button>
           </el-col>
-
-
-
         </el-form-item>
         <el-form-item>
           <el-checkbox
@@ -135,10 +132,13 @@
     methods: {
       formSubmit () {
       	var self = this
-        this.$refs.loginForm.validate((valid) => {
+        this.$refs.loginForm.validate( function (valid) {
           if (valid) {
-            self.$http.post("/api/user/login", self.form, function (res) {
-            })
+            self.$http.post("/api/user/login", self.form )
+              .then( function ( res ) {
+                self.$store.state.user = res.body
+                self.$store.state.io = io()
+              } )
           }
         })
       },

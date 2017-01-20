@@ -1,5 +1,6 @@
 <template>
-<div>
+<el-card style="width: 500px">
+  <h3>详细信息</h3>
   <el-row :gutter="20" class="myList">
     <el-col :span="6" class="listName">头像</el-col>
     <el-col :span="12" class="listValue"><img src="http://localhost:3000/api/user/captcha/init"></el-col>
@@ -26,7 +27,9 @@
   </el-row>
 
   <el-button @click="test">test</el-button>
-</div>
+  <el-button type="info" icon="edit">修改个人信息</el-button>
+  <el-button type="danger" icon="delete">删除好友</el-button>
+</el-card>
 </template>
 
 <script>
@@ -50,7 +53,8 @@
     },
     methods: {
     	test() {
-    		this.$store.dispatch( "incrementAsync" )
+//    		this.$store.dispatch( "incrementAsync" )
+        console.log(this.$store.state);
       }
     }
   }

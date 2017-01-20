@@ -11,6 +11,7 @@ import mutations from  './mutations'
 const state = {
   strict: true,
 
+  user: {},
   email: "",
   sex: "",
   age: "",
@@ -24,7 +25,7 @@ const state = {
 
 export default new vuex.Store( {
   state,
-  getters,
+  // getters,
   actions,
   mutations,
 } )

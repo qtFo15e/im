@@ -1,10 +1,14 @@
 <template>
   <div id="app">
+    <find></find>
+    <list></list>
+    <chat-panel></chat-panel>
     <signup></signup>
     <login></login>
     <profile></profile>
     <photo></photo>
     <profile-edit></profile-edit>
+
   </div>
 </template>
 
@@ -14,6 +18,9 @@ import login from './components/login.vue'
 import profile from './components/profile.vue'
 import profileEdit from './components/profileEdit.vue'
 import photo from  './components/photo.vue'
+import chatPanel from './components/chatPanel.vue'
+import list from './components/list.vue'
+import find from './components/find.vue'
 
 export default {
   name: 'app',
@@ -23,6 +30,9 @@ export default {
     profile,
     photo,
     profileEdit,
+    chatPanel,
+    list,
+    find
   }
 }
 </script>

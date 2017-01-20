@@ -1,12 +1,17 @@
 <template>
-  <el-card style="width: 800px;">
+  <el-card style="width: 500px;">
     <h3>个人信息</h3>
-    <el-row >
-      <el-col :span="6" style="text-align: left">
-        <img  src="http://localhost:3000/api/user/captcha/init" >
-      </el-col>
-    </el-row>
     <el-form ref="form" :rules="rules" :model="form" label-width="90px">
+      <el-row>
+        <el-col :span="24">
+          <el-form-item
+            label="头像">
+            <div style="text-align: left">
+              <img  src="http://localhost:3000/api/user/captcha/init" >
+            </div>
+          </el-form-item>
+        </el-col>
+      </el-row>
       <el-row>
         <el-col :span="12">
           <el-form-item
