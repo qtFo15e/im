@@ -63,6 +63,7 @@
         </el-form-item>
       </el-form>
     </el-card>
+    <el-button @click="init" >init</el-button>
   </div>
 
 </template>
@@ -144,6 +145,9 @@
       },
       changeCaptchaImg () {
         this.captchaSrc = "http://localhost:3000/api/user/captcha/" + Math.random()
+      },
+      init(){
+
       }
     }
   }

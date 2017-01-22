@@ -2,12 +2,6 @@
 <el-card style="width: 250px">
   <el-collapse v-model="activeRelation" accordion>
     <el-collapse-item title="在线" name="online">
-      <ul style="list-style: none;padding: 0">
-          <list-item
-            name="迟猛"
-            signature="我是最刷的,哈哈哈">
-          </list-item>
-      </ul>
     </el-collapse-item>
     <el-collapse-item title="离线" name="outline">
 

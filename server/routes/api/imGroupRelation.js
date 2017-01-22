@@ -20,20 +20,7 @@ module.exports = {
       } )
   },
   'join': function ( io, socket, data, callback ) {
-    io.mongo.collection( "imGroup" ).updateOne( { gourpId: data.body.imGroupId }, { $push: { numbers: socket.handshake.session.email } } )
-      .then( function () {
-        io.mongo.collection( "user" ).updateOne( { email: socket.handshake.session.email } , { $push: { imGroups: data.body.data.body.imGroupId } } )
-      } )
-  },
-  'search': function ( io, socket, data, callback ) {
-    let query = {}
-    query[ data.body.type ] = data.body.value
-    //todo  没有限制查询数量
-    io.mongo.collection( "imGroup" ).find( query, {fields: { _id: 0 , numbers: 0 }} ).toArray()
-      .then( callback )
-  },
-  'checkIn': function ( io, socket, data, callback ) {
-    io.mongo.collection( "imGroup" ).findOne( { gourpId: data.body.imGroupId,  numbers: socket.handshake.session.email } )
+    io.mongo.collection( "imGroup" ).findOne( { imGroupId: data.body.imGroupId,  numbers: socket.handshake.session.email } )
       .then( function ( result ) {
         if ( result ) {
           callback( {
@@ -41,12 +28,33 @@ module.exports = {
             ms: "已经在数组中"
           } )
         } else {
-          callback ( {
-            status: true
-          } )
+          io.mongo.collection( "imGroup" ).updateOne( { imGroupId: data.body.imGroupId }, { $push: { numbers: socket.handshake.session.email } } )
+            .then( function () {
+              io.mongo.collection( "user" ).updateOne( { email: socket.handshake.session.email } , { $push: { imGroup: data.body.imGroupId } } )
+            } )
+            .then( function () {
+              //todo 后端只穿部分信息，前端整合，可以节省带宽
+              return io.mongo.collection( "imGroup" ).findOne( { imGroupId: data.body.imGroupId }, { fields: { _id: 0 } } )
+            } )
+            .then( function ( doc ) {
+              callback( {
+                status: true,
+                body: doc
+              } )
+            } )
         }
       } )
-
+  },
+  'search': function ( io, socket, data, callback ) {
+    let query = {}
+    query[ data.body.type ] = data.body.value
+    //todo  没有限制查询数量
+    io.mongo.collection( "imGroup" ).find( query, {fields: { _id: 0 , numbers: 0 }} ).toArray()
+      .then( function ( docs ) {
+        if ( docs.length ==! 0 ) {
+          callback( docs )
+        }
+      } )
   },
   'quit': function ( io, socket, data, callback ) {
     io.db.sadd(  `${io.ns.GROUP}:${data.body.imGroup}:${io.ns.NUMBERS}`, socket.handshake.session.email )

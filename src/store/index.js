@@ -12,15 +12,7 @@ const state = {
   strict: true,
 
   user: {},
-  email: "",
-  sex: "",
-  age: "",
-  birthday: "",
-  signature: "",
-  province: "",
-  city:'',
-  name:''
-
+  io: io()
 }
 
 export default new vuex.Store( {

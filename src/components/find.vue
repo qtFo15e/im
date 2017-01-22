@@ -27,12 +27,14 @@
           <ul style="list-style: none">
               <detail-list-item
                 v-for="item in imGroupArr"
-                :joinOrAdd="joinOrAdd"
                 :route="active"
-                :photo="'dasd'"
+                :photo="'http://localhost:3000/api/user/captcha/init'"
                 :info="item">
               </detail-list-item>
           </ul>
+          <div v-if="imGroupArr.length === 0 && searchedImGroup">
+            未找到群组
+          </div>
         </div>
       </el-tab-pane>
       <el-tab-pane label="新建群" name="newImGroup">
@@ -80,6 +82,7 @@
           introduction: ""
         },
         imGroupArr:[],
+        searchedImGroup: false,
         rules: {
           name: [
             {
@@ -103,12 +106,11 @@
     methods: {
       searchImGroup: function () {
       	var self = this
+        this.searchedImGroup = true
 
         if ( this.imGroupValue === '') return
 
-
-        self.socket = io()
-        self.socket.emit('message',  {
+        this.$store.state.io.emit('message',  {
           route: 'imGroupRelation',
           event: 'search',
           body: self.imGroup
@@ -116,18 +118,10 @@
           self.imGroupArr = imGroupArr
         } )
       },
-      joinGroup:function () {
-        var self = this
-        this.$store.state.io.emit( "message", {
-          route: self.active,
-          event: self.active === 'imGroupRelation' ?  "join" : 'add',
-        }, function (  ) {
-
-        } )
-      },
       addContacts: function () {
 
       },
+
       joinOrAdd( info ) {
       	var self = this
 
@@ -157,8 +151,7 @@
 
         this.$refs.newImGroupForm.validate( function ( valid ) {
           if ( valid ) {
-            self.socket = io()
-            self.socket.emit('message', {
+            self.$store.state.io.emit('message', {
               route: 'imGroupRelation',
               event: 'create',
               body: self.newGroupForm
