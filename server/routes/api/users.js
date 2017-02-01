@@ -77,7 +77,7 @@ router.post( '/login', function ( req, res ) {
 
       //载入用户信息
       let findImGroup = Promise.map( doc.imGroup, function ( imGroupId ) {
-        return req.mongo.collection( 'imGroup' ).findOne( { imGroupId: imGroupId }, { fields: { _id: 0, numbers: 0 } } ).then()
+        return req.mongo.collection( 'imGroup' ).findOne( { imGroupId: imGroupId }, { fields: { _id: 0 } } ).then()
       } )
       let findContacts = Promise.map( doc.contacts, function ( email ) {
         return req.mongo.collection( 'user' ).findOne( { email: email }, { fields: { email: 1, profile: 1 } } )
