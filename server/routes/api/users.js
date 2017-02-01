@@ -3,6 +3,7 @@ var router = express.Router();
 const captchapng = require('captchapng')
 const moment = require('moment');
 const _ = require( "underscore" )
+const Promise = require( 'bluebird' )
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -73,7 +74,21 @@ router.post( '/login', function ( req, res ) {
         req.session.cookie.expires = new Date( new Date().getTime() + 36000000 )
       }
       req.session.email = email
-      res.send( _.omit(doc, 'password' ) )
+
+      //载入用户信息
+      let findImGroup = Promise.map( doc.imGroup, function ( imGroupId ) {
+        return req.mongo.collection( 'imGroup' ).findOne( { imGroupId: imGroupId }, { fields: { _id: 0, numbers: 0 } } ).then()
+      } )
+      let findContacts = Promise.map( doc.contacts, function ( email ) {
+        return req.mongo.collection( 'user' ).findOne( { email: email }, { fields: { email: 1, profile: 1 } } )
+      } )
+
+      Promise.all( [ findImGroup, findContacts ] )
+        .then( function ( [ imGroup, contacts ]  ) {
+            doc.imGroup = imGroup
+            doc.contacts = contacts
+            res.send( _.omit( doc, 'password' ) )
+        } )
     }
   } )
 } )

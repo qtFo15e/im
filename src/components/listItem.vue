@@ -2,7 +2,7 @@
     <li class="el-button el-button--default" style="display: block;border: none;padding: 0">
       <el-row>
         <el-col :span="4" >
-          <img src="photo">
+          <img :src="photo">
         </el-col>
         <el-col :span="16">
           <div>{{ name }}</div>
@@ -18,7 +18,7 @@
 
 <script>
   export default {
-  	props: [ 'name', 'signature'],
+  	props: [ 'name', 'signature', 'photo'],
 
   	data(){
   		return {

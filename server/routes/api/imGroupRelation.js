@@ -57,10 +57,8 @@ module.exports = {
       } )
   },
   'quit': function ( io, socket, data, callback ) {
-    io.db.sadd(  `${io.ns.GROUP}:${data.body.imGroup}:${io.ns.NUMBERS}`, socket.handshake.session.email )
-    io.mongo.collection( "imGroup" ).updateOne( { gourpId: data.body.imGroupId}, { $pull: { numbers: data.body.email } } )
-      .then( function () {
-        io.mongo.collection( "user" ).updateOne( { email: socket.handshake.session.email }, { $pull: { imGroups: data.body.data.body.imGroupId } } )
-      } )
+    //todo  需要对各种数据库操作的返回值有一定认识
+    io.mongo.collection( "imGroup" ).updateOne( { imGroupId: data.body.imGroupId}, { $pull: { numbers: socket.handshake.session.email } } )
+    io.mongo.collection( "user" ).updateOne( { email: socket.handshake.session.email }, { $pull: { imGroup: data.body.imGroupId } } )
   }
 }

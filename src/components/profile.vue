@@ -26,7 +26,6 @@
     <el-col :span="12" class="listValue">{{ signature }}</el-col>
   </el-row>
 
-  <el-button @click="test">test</el-button>
   <el-button type="info" icon="edit">修改个人信息</el-button>
   <el-button type="danger" icon="delete">删除好友</el-button>
 </el-card>
@@ -52,10 +51,6 @@
       }
     },
     methods: {
-    	test() {
-//    		this.$store.dispatch( "incrementAsync" )
-        console.log(this.$store.state);
-      }
     }
   }
 </script>

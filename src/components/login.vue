@@ -63,7 +63,6 @@
         </el-form-item>
       </el-form>
     </el-card>
-    <el-button @click="init" >init</el-button>
   </div>
 
 </template>
@@ -73,8 +72,8 @@
     data () {
       return {
         form: {
-          email: "",
-          password: "",
+          email: "123@qq.com",
+          password: "123465",
           captcha: "",
           savePassword: true
         },
@@ -82,7 +81,7 @@
         rules: {
           email: [
             {
-              validator: (rule, value, callback) => {
+              validator: function(rule, value, callback) {
                 if (value === "" || value === undefined ) {
                   callback( new Error( "请输入邮箱" ) )
                   return
@@ -100,7 +99,7 @@
           ],
           password: [
             {
-              validator: (rule, value, callback) => {
+              validator: function(rule, value, callback) {
               	if (value === "" || value === undefined ) {
               		callback( new Error( "请输入密码" ) )
               		return
@@ -117,7 +116,7 @@
           ],
           captcha: [
             {
-              validator: (rule, value, callback) => {
+              validator: function(rule, value, callback) {
               	if (value === "" || value === undefined ) {
               		callback( new Error('请输入验证码') )
                 } else {
@@ -137,17 +136,17 @@
           if (valid) {
             self.$http.post("/api/user/login", self.form )
               .then( function ( res ) {
+              	// todo  使用set和get才能触发插件？
                 self.$store.state.user = res.body
-                self.$store.state.io = io()
+                //todo 流程完善后接触注释
+//                self.$store.state.io = io()
               } )
+            self.$store.state.user.photo = 'http://localhost:3000/api/profile/photo'
           }
         })
       },
       changeCaptchaImg () {
         this.captchaSrc = "http://localhost:3000/api/user/captcha/" + Math.random()
-      },
-      init(){
-
       }
     }
   }

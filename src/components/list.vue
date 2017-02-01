@@ -9,9 +9,10 @@
     <el-collapse-item title="群组" name="imGroup">
       <ul style="list-style: none;padding: 0">
         <list-item
-          v-for=""
-          name="迟猛"
-          signature="我是最刷的,哈哈哈">
+          v-for="item in this.$store.state.user.imGroup"
+          :photo="'http://localhost:3000/api/user/captcha/init'"
+          :name="item.name"
+          :signature="item.introduction">
         </list-item>
       </ul>
     </el-collapse-item>

@@ -1,13 +1,19 @@
 <template>
   <div id="app">
+    <login></login>
+
+    <div v-if="this.$store.state.user.imGroup">
+      <im-group-profile :info="this.$store.state.user.imGroup[0]"></im-group-profile>
+    </div>
     <find></find>
     <list></list>
-    <chat-panel></chat-panel>
+
     <signup></signup>
-    <login></login>
+
     <profile></profile>
     <photo></photo>
     <profile-edit></profile-edit>
+    <chat-panel></chat-panel>
 
   </div>
 </template>
@@ -21,6 +27,7 @@ import photo from  './components/photo.vue'
 import chatPanel from './components/chatPanel.vue'
 import list from './components/list.vue'
 import find from './components/find.vue'
+import imGroupProfile from './components/imGroupProfile.vue'
 
 export default {
   name: 'app',
@@ -32,7 +39,8 @@ export default {
     profileEdit,
     chatPanel,
     list,
-    find
+    find,
+    imGroupProfile
   }
 }
 </script>
