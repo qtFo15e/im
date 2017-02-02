@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <login></login>
-    <div v-if="this.$store.state.user.imGroup">
-      <im-group-profile :info="this.$store.state.user.imGroup[0]"></im-group-profile>
-    </div>
+    <!--<div v-if="this.$store.state.user.imGroup">-->
+      <!--<im-group-profile :info="this.$store.state.user.imGroup[0]"></im-group-profile>-->
+    <!--</div>-->
     <find></find>
     <list></list>
 

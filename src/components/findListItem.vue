@@ -41,6 +41,8 @@
                 message: '成功加入群组',
                 type: 'success'
               });
+
+              self.$store.state.user.imGroup.push( res.body )
             } else {
               self.$notify({
                 title: '提示',
@@ -48,24 +50,10 @@
                 type: 'warning'
               });
             }
+
             self.disabledJoin = true
         } )
-      },
-      joinSuccess() {
-        this.$notify({
-          title: '成功',
-          message: '加入群组成功',
-          type: 'success'
-        });
-      },
-
-      joinFail() {
-        this.$notify({
-          title: '警告',
-          message: '已经在群组中',
-          type: 'warning'
-        });
-      },
+      }
     },
     watch: {
     	info: function () {

@@ -125,15 +125,22 @@ io.use(sharedsession( sessionInstance ));
 
 io.on( "connection" , function ( socket ) {
   io.redis = redis
+  io.ns = config.myDev.redisNamespace
+
   mongo.then( function ( db ) {
     io.mongo = db
+
     socket.on( "message", function ( data, callback  ) {
       router.ioRouter( io, socket, data, callback )
     } )
+
+    //todo 用户下线改变状态
+    socket.on( "disconnect" , function () {
+
+    })
   } )
-  // io.mongo._user = req.mongo.collection( "user" )
-  // io.mongo._group = req.mongo.collection( "group" )
-  io.ns = config.myDev.redisNamespace
+
+
 
 })
 

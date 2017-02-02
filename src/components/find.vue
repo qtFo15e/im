@@ -9,8 +9,20 @@
               <el-option label="email" value="email"></el-option>
               <el-option label="用户名" value="profile.name"></el-option>
             </el-select>
-            <el-button slot="append" icon="search"></el-button>
+            <el-button slot="append" icon="search" @click="searchUser"></el-button>
           </el-input>
+          <div>
+            <ul style="list-style: none">
+              <user-detail-list-item
+                v-for="item in contactsArr"
+                :photo="'http://localhost:3000/api/user/captcha/init'"
+                :info="item">
+              </user-detail-list-item>
+            </ul>
+            <div v-if="contactsArr !== null && contactsArr.length === 0 ">
+              未找此用户
+            </div>
+          </div>
         </div>
       </el-tab-pane>
       <el-tab-pane label="群组" name="imGroupRelation">
@@ -27,12 +39,11 @@
           <ul style="list-style: none">
               <detail-list-item
                 v-for="item in imGroupArr"
-                :route="active"
                 :photo="'http://localhost:3000/api/user/captcha/init'"
                 :info="item">
               </detail-list-item>
           </ul>
-          <div v-if="imGroupArr.length === 0 && searchedImGroup">
+          <div v-if="imGroupArr !== null && imGroupArr.length === 0 ">
             未找到群组
           </div>
         </div>
@@ -63,7 +74,9 @@
 
 <script>
   import detailListItem from './findListItem.vue'
+  import userDetailListItem  from  './findListUserItem.vue'
   import util from '../../util/index'
+
 
   export default {
     data() {
@@ -81,8 +94,9 @@
     			name: "",
           introduction: ""
         },
-        imGroupArr:[],
+        imGroupArr:null,
         searchedImGroup: false,
+        contactsArr: null,
         rules: {
           name: [
             {
@@ -106,9 +120,8 @@
     methods: {
       searchImGroup: function () {
       	var self = this
-        this.searchedImGroup = true
 
-        if ( this.imGroupValue === '') return
+        if ( this.imGroup.value === '') return
 
         this.$store.state.io.emit('message',  {
           route: 'imGroupRelation',
@@ -162,9 +175,23 @@
           }
         } )
       },
+      searchUser() {
+        var self = this
+
+        if ( this.contacts.value === '') return
+
+        this.$store.state.io.emit('message',  {
+          route: 'userRelation',
+          event: 'search',
+          body: self.contacts
+        }, function ( contactsArr ) {
+          self.contactsArr = contactsArr
+        } )
+      }
     },
     components: {
-      detailListItem
+      detailListItem,
+      userDetailListItem
     }
   }
 </script>

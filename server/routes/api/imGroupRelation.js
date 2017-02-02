@@ -1,6 +1,8 @@
 /**
  * Created by ThinkPad on 2017/1/20.
  */
+const Promise = require( "bluebird" )
+
 
 module.exports = {
   'create': function ( io, socket, data, callback ) {
@@ -25,7 +27,7 @@ module.exports = {
         if ( result ) {
           callback( {
             status: false,
-            ms: "已经在数组中"
+            body: "已经在数组中"
           } )
         } else {
           io.mongo.collection( "imGroup" ).updateOne( { imGroupId: data.body.imGroupId }, { $push: { numbers: socket.handshake.session.email } } )
@@ -51,14 +53,15 @@ module.exports = {
     //todo  没有限制查询数量
     io.mongo.collection( "imGroup" ).find( query, {fields: { _id: 0 , numbers: 0 }} ).toArray()
       .then( function ( docs ) {
-        if ( docs.length ==! 0 ) {
-          callback( docs )
-        }
+        callback( docs )
       } )
   },
   'quit': function ( io, socket, data, callback ) {
     //todo  需要对各种数据库操作的返回值有一定认识
-    io.mongo.collection( "imGroup" ).updateOne( { imGroupId: data.body.imGroupId}, { $pull: { numbers: socket.handshake.session.email } } )
-    io.mongo.collection( "user" ).updateOne( { email: socket.handshake.session.email }, { $pull: { imGroup: data.body.imGroupId } } )
+    var imGroup =  io.mongo.collection( "imGroup" ).updateOne( { imGroupId: data.body.imGroupId}, { $pull: { numbers: socket.handshake.session.email } } )
+    var user = io.mongo.collection( "user" ).updateOne( { email: socket.handshake.session.email }, { $pull: { imGroup: data.body.imGroupId } } )
+
+    Promise.all( [ imGroup, user ] )
+      .then( callback )
   }
 }
