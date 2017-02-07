@@ -9,6 +9,7 @@ var router = require( './routes/api/index' )
 var redis = require( "../db/redis/index" )
 var mongo = require( '../db/mongodb/index' )
 var util = require( '../util/index' )
+var userStatus = require( './routes/api/userStatus' )
 
 var app = express();
 
@@ -123,12 +124,20 @@ var io = require( "socket.io" )( server )
 io.use(sharedsession( sessionInstance ));
 
 
+//todo 登录过滤
 io.on( "connection" , function ( socket ) {
+
+  // todo 应该关闭socket连接
+  // if ( !socket.handshake.session.email ) return
+
   io.redis = redis
   io.ns = config.myDev.redisNamespace
 
   mongo.then( function ( db ) {
     io.mongo = db
+
+    // websocket是双向的， 逻辑上最好把client作为主动方
+    //userStatus.login( io, socket )
 
     socket.on( "message", function ( data, callback  ) {
       router.ioRouter( io, socket, data, callback )
@@ -136,8 +145,9 @@ io.on( "connection" , function ( socket ) {
 
     //todo 用户下线改变状态
     socket.on( "disconnect" , function () {
-
+      userStatus.logout( io, socket )
     })
+
   } )
 
 

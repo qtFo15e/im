@@ -73,7 +73,7 @@
       return {
         form: {
           email: "123@qq.com",
-          password: "123465",
+          password: "123456",
           captcha: "",
           savePassword: true
         },
@@ -137,11 +137,12 @@
             self.$http.post("/api/user/login", self.form )
               .then( function ( res ) {
               	// todo  使用set和get才能触发插件？
-                self.$store.state.user = res.body
+//                self.$store.state.user = res.body
+                self.$store.commit( 'initSocket', self )
+                self.$store.commit( "initUser" , res.body )
                 //todo 流程完善后接触注释
 //                self.$store.state.io = io()
               } )
-            self.$store.state.user.photo = 'http://localhost:3000/api/profile/photo'
           }
         })
       },

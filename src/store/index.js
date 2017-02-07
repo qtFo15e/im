@@ -9,13 +9,14 @@ import mutations from  './mutations'
 
 
 const state = {
-  strict: true,
-
   user: {},
-  io: io()
+  io: null,
+  onlineContacts:[]
 }
 
 export default new vuex.Store( {
+  //todo 遗留问题， 未开启严格模式
+  // strict: true,
   state,
   // getters,
   actions,

@@ -36,6 +36,7 @@ module.exports = {
       AUTH: "AUTH",
       PROFILE: 'PROFILE',
       SESSION: '_SESSION',
+      SOCKET: '_SOCKET',
       PHOTO:'PHOTO',
       BINARY: 'BINARY',
       SEPARATOR:':',
@@ -43,11 +44,12 @@ module.exports = {
       NEWGROUPID: 'NEWGROUPID',
       GROUP: '_GROUP',
       INTRODUCTION: 'INTRODUCTION',
-      NUMBERS: 'NUMBERS'
+      NUMBERS: 'NUMBERS',
+      // STATUS:"_STATUS"
     },
     secret: "123456",
     needLoginSites:[
       "/api/profile/",
-    ]
+    ],
   }
 }

@@ -2,6 +2,7 @@
  * Created by ThinkPad on 2017/1/20.
  */
 
+//todo 新加好友的用户状态
 
 module.exports = {
   'search': function ( io, socket, data, callback ) {
@@ -23,19 +24,18 @@ module.exports = {
             status: false,
             body: "已经在好友列表中，请勿重复添加"
           } )
-        }
-      } )
-      .then( function () {
-        io.mongo.collection("user").updateOne( { email: socket.handshake.session.email }, { $push: { contacts: data.body.email } })
-          .then( function (  ) {
-            return io.mongo.collection("user").findOne( { email: data.body.email  }, { fields: { email:1, profile: 1, _id: 0 } })
-          } )
-          .then( function ( doc ) {
-            callback( {
-              status: true,
-              body: doc
+        } else {
+          io.mongo.collection("user").updateOne( { email: socket.handshake.session.email }, { $push: { contacts: data.body.email } })
+            .then( function (  ) {
+              return io.mongo.collection("user").findOne( { email: data.body.email  }, { fields: { email:1, profile: 1, _id: 0 } })
             } )
-          } )
+            .then( function ( doc ) {
+              callback( {
+                status: true,
+                body: doc
+              } )
+            } )
+        }
       } )
   },
   //todo 未测试

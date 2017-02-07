@@ -3,10 +3,5 @@
  */
 
 export default {
-  incrementAsync ( context ) {
-    setTimeout( ()=>{
-      context.commit( "increment" )
-    }, 1000 )
 
-  }
 }

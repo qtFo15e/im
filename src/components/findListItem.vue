@@ -42,7 +42,7 @@
                 type: 'success'
               });
 
-              self.$store.state.user.imGroup.push( res.body )
+              self.$store.commit( 'addImGroupId', res.body )
             } else {
               self.$notify({
                 title: '提示',

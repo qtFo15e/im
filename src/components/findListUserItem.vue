@@ -53,8 +53,7 @@
                 type: 'success'
               });
 
-              console.log( res.body )
-              self.$store.state.user.contacts.push( res.body )
+              self.$store.commit( 'addContacts', res.body)
             } else {
               self.$notify({
                 title: '提示',

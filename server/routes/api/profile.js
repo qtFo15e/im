@@ -10,7 +10,7 @@ var upload = multer({ storage: storage })
 
 
 router.post( "/photoUpload", upload.single('photo') ,function ( req, res ) {
-  // todo 读seesion 会不会出现数据库的异步问题
+  // todo 读session 会不会出现数据库的异步问题
   req.redis.set( req.session.email +  req.ns.SEPARATOR +  req.ns.PHOTO, new Buffer( req.file.buffer ) )
     .then( function () {
       res.send( "ok" )

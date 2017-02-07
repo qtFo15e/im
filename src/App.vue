@@ -1,19 +1,16 @@
 <template>
   <div id="app">
+    <chat-panel></chat-panel>
     <login></login>
     <!--<div v-if="this.$store.state.user.imGroup">-->
       <!--<im-group-profile :info="this.$store.state.user.imGroup[0]"></im-group-profile>-->
     <!--</div>-->
     <find></find>
     <list></list>
-
     <signup></signup>
-
     <profile></profile>
     <photo></photo>
     <profile-edit></profile-edit>
-    <chat-panel></chat-panel>
-
   </div>
 </template>
 

@@ -131,34 +131,6 @@
           self.imGroupArr = imGroupArr
         } )
       },
-      addContacts: function () {
-
-      },
-
-      joinOrAdd( info ) {
-      	var self = this
-
-        var event, body
-        if ( self.active === 'imGroupRelation') {
-      		event = 'join'
-          body = {
-            imGroupId: info,id
-          }
-        } else {
-      		event = 'add'
-          body = {
-            email: info.id
-          }
-        }
-
-      	this.$store.state.io.emit( "message", {
-          route: self.active,
-          event,
-          body
-        }, function (  ) {
-
-        } )
-      },
       createImGroup () {
         var self = this
 
@@ -169,8 +141,7 @@
               event: 'create',
               body: self.newGroupForm
             }, function (groupId) {
-//              console.log( Object.assign( {}, self.newGroupForm, { groupId, } )  )
-//              console.log( this.$store.state )
+            	//todo
             });
           }
         } )

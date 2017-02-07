@@ -5,10 +5,7 @@ const moment = require('moment');
 const _ = require( "underscore" )
 const Promise = require( 'bluebird' )
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
 
-});
 
 router.post( "/signup", function ( req, res ) {
   req.mongo.collection( 'user' ).insertOne( {
@@ -80,7 +77,7 @@ router.post( '/login', function ( req, res ) {
         return req.mongo.collection( 'imGroup' ).findOne( { imGroupId: imGroupId }, { fields: { _id: 0 } } ).then()
       } )
       let findContacts = Promise.map( doc.contacts, function ( email ) {
-        return req.mongo.collection( 'user' ).findOne( { email: email }, { fields: { email: 1, profile: 1 } } )
+        return req.mongo.collection( 'user' ).findOne( { email: email }, { fields: { email: 1, profile: 1 , _id: 0 } } )
       } )
 
       Promise.all( [ findImGroup, findContacts ] )

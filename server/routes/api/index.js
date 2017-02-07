@@ -20,12 +20,17 @@ expressRouter.use( "/profile", require( "./profile" ) )
 
 //io
 const userRelation = require( './userRelation' )
+const userMessage = require( "./userMessage" )
 const imGroupRelation = require( './imGroupRelation' )
-
+const imGroupMessage = require( './imGroupMessage' )
+const userStatus =  require( './userStatus' )
 
 const app = {
   userRelation,
-  imGroupRelation
+  imGroupRelation,
+  userMessage,
+  imGroupMessage,
+  userStatus
 }
 
 const ioRouter = function ( io, socket, data, callback ) {
