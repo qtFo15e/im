@@ -1,6 +1,5 @@
 <template>
     <el-card style="width: 600px">
-        <!--todo 临时-->
       <vue-scrollbar
         classes="my-scrollbar"
         ref="Scrollbar">
@@ -22,6 +21,7 @@
       </div>
       <div>
         <el-button @click="init">init</el-button>
+        <el-button @click="group">group</el-button>
         <el-button @click="close">关闭</el-button>
         <el-button @click="sendMessage" type="primary">发送</el-button>
       </div>
@@ -47,7 +47,13 @@
         self.$nextTick( function () {
           self.$refs.Scrollbar.scrollToY(9999)
         } )
-    		return  this.$store.state.chatting ? this.$store.state.user.contacts[ this.$store.state.chatting ].messageList: []
+        if ( this.$store.state.chatting.route === 'userMessage' ){
+          return  this.$store.state.chatting.receiver ? this.$store.state.user.contacts[ this.$store.state.chatting.receiver ].messageList: []
+        } else {
+          return  this.$store.state.chatting.receiver ? this.$store.state.user.imGroup[ this.$store.state.chatting.receiver ].messageList: []
+        }
+
+
       }
     },
     methods: {
@@ -57,24 +63,30 @@
         if ( this.newMs === "" ) return
 
         this.$store.state.io.emit( "message", {
-        	route: "userMessage",
+        	route: self.$store.state.chatting.route,
           event: self.type,
           body: {
-            //todo 临时变量
-            receiver: self.$store.state.chatting,
+            receiver: self.$store.state.chatting.receiver,
             value: self.newMs
           }
         } , function () {
-          self.$store.state.user.contacts[ self.$store.state.chatting ].messageList.push( {
+          self.newMs = ''
+
+          if ( self.$store.state.chatting.route === 'imGroupMessage' ) return
+
+          self.$store.state.user.contacts[ self.$store.state.chatting.receiver ].messageList.push( {
             value: self.newMs,
             name: self.$store.state.user.profile.name,
-            sender: '_self'
+            sender: self.$store.state.user.email
           } )
-          self.newMs = ''
+
         })
       },
       init(){
-        this.$store.state.chatting = this.$store.state.user.email === "chi@qq.com" ? '123@qq.com' : "chi@qq.com"
+        this.$store.state.chatting = this.$store.state.user.email === 'chi@qq.com'  ? { route:"userMessage", receiver: "123@qq.com" } : { route:"userMessage", receiver: "chi@qq.com" }
+      },
+      group(){
+        this.$store.state.chatting = { route:"imGroupMessage", receiver: "1" }
       },
       close(){
 

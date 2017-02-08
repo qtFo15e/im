@@ -45,7 +45,6 @@
     data() {
       return {
         activeRelation: 'online',
-
       };
     },
     computed: {

@@ -12,7 +12,7 @@ const state = {
   user: {},
   io: null,
   onlineContacts:[],
-  chatting: ""
+  chatting: {}
 }
 
 export default new vuex.Store( {

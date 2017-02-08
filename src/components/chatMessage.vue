@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row >
-      <el-col :span="24" style="text-align: left" v-bind:style="{color: message.sender === '_self' ? '#000000': '#530466'}">
+      <el-col :span="24" style="text-align: left" v-bind:style="{color: message.sender === selfEmail ? '#000000': '#B32F98'}">
         {{message.name}} {{ date.toLocaleDateString() }} {{ date.toLocaleTimeString() }}
       </el-col>
     </el-row>
@@ -21,7 +21,9 @@
       }
     },
     computed: {
-
+      selfEmail(){
+      	return this.$store.state.user.email
+      }
     }
   }
 </script>

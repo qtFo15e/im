@@ -6,7 +6,6 @@ const _ = require( 'underscore' )
 
 module.exports = {
   text( state, res, vm ){
-    console.log( res )
     res.body.name = state.user.contacts[ res.body.sender ].profile.name
     state.user.contacts[ res.body.sender ].messageList.push( res.body )
   },

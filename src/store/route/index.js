@@ -4,10 +4,12 @@
 
 var userStatus = require( "./userStatus" )
 var userMessage = require( './userMessage' )
+var imGroupMessage = require( './imGroupMessage' )
 
 let app = {
   userStatus,
-  userMessage
+  userMessage,
+  imGroupMessage
 }
 
 
