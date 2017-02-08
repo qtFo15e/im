@@ -1,13 +1,12 @@
 <template>
   <div>
-    <el-row style="color: #2c3e50">
-      <el-col :span="8">{{message.username}}</el-col>
-      <el-col :span="16">{{ new Date().toLocaleDateString() }}</el-col>
-    </el-row>
-    <el-row style="color: #006600">
-      <el-col :span="24">
-          {{message.value}}
+    <el-row >
+      <el-col :span="24" style="text-align: left" v-bind:style="{color: message.sender === '_self' ? '#000000': '#530466'}">
+        {{message.name}} {{ date.toLocaleDateString() }} {{ date.toLocaleTimeString() }}
       </el-col>
+    </el-row>
+    <el-row >
+      <el-col :span="24"  style="text-align: left">{{message.value}}</el-col>
     </el-row>
   </div>
 
@@ -16,6 +15,11 @@
 <script>
   export default {
     props: [ "message" ],
+    data(){
+    	return {
+    		date: new Date()
+      }
+    },
     computed: {
 
     }

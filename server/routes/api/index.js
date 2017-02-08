@@ -34,6 +34,7 @@ const app = {
 }
 
 const ioRouter = function ( io, socket, data, callback ) {
+  console.log( data )
   app[ data.route ][ data.event ]( io, socket, data, callback )
 }
 

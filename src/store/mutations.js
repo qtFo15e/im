@@ -22,11 +22,13 @@ export default {
     var temp = {}
     temp[ contacts.email ] = {
       profile: contacts.profile,
+      messageList: [],
     }
     state.user.contacts = Object.assign( {}, state.user.contacts, temp )
   },
   addImGroupId( state, imGroup ){
     var temp = {}
+    temp.messageList = []
     temp[ imGroup.imGroupId ]  = _.omit( imGroup, 'imGroupId' )
     state.user.imGroup = Object.assign( {}, state.user.imGroup, temp )
   }
@@ -38,6 +40,7 @@ function convertContacts( contacts ) {
   _.each( contacts, function ( item ) {
     result[ item.email ] = {
       profile: item.profile,
+      messageList: []
     }
   } )
   return result
@@ -49,7 +52,8 @@ function convertImGroup ( imGroup ) {
     result[ item.imGroupId ] = {
       name: item.name,
       introduction: item.introduction,
-      numbers: item.numbers
+      numbers: item.numbers,
+      messageList: []
     }
   } )
   return result

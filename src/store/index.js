@@ -11,7 +11,8 @@ import mutations from  './mutations'
 const state = {
   user: {},
   io: null,
-  onlineContacts:[]
+  onlineContacts:[],
+  chatting: ""
 }
 
 export default new vuex.Store( {

@@ -3,9 +3,11 @@
  */
 
 var userStatus = require( "./userStatus" )
+var userMessage = require( './userMessage' )
 
 let app = {
-  userStatus
+  userStatus,
+  userMessage
 }
 
 
