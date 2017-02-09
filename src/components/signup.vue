@@ -148,7 +148,7 @@
         } )
       },
       toLogin () {
-
+        this.$router.push( "login" )
       }
     }
   }

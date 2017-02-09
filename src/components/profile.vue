@@ -26,7 +26,7 @@
     <el-col :span="12" class="listValue">{{ signature }}</el-col>
   </el-row>
 
-  <el-button type="info" icon="edit">修改个人信息</el-button>
+  <el-button type="info" icon="edit" @click="toEditProfile">修改个人信息</el-button>
   <el-button type="danger" icon="delete">删除好友</el-button>
 </el-card>
 </template>
@@ -51,6 +51,9 @@
       }
     },
     methods: {
+      toEditProfile(){
+      	this.$router.push( "editProfile" )
+      }
     }
   }
 </script>

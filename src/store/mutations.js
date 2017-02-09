@@ -3,7 +3,7 @@
  */
 
 const _ = require( "underscore" )
-const app = require( './route/index' )
+const app = require( './webSocketRoute/index' )
 
 export default {
   initUser(state, rowUserData) {

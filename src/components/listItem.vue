@@ -5,8 +5,8 @@
           <el-col :span="6">
             <img :src="photo" style="width: 30px;height: 30px">
           </el-col>
-          <el-col :span="18">
-            <div>{{ name }}</div>
+          <el-col :span="18" >
+            <div @click="toChat" style="background-color: #008800">{{ name }}</div>
             <div>{{ signature }}</div>
           </el-col>
         </el-row>
@@ -36,6 +36,11 @@
   	data(){
   		return {
 
+      }
+    },
+    methods:{
+      toChat(){
+      	this.$router.push( 'chat' )
       }
     }
   }

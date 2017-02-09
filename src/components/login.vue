@@ -57,9 +57,9 @@
           >登录</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button
-            type="text">
-            立即注册</el-button>
+          <el-button type="text" @click="toSignup">
+            立即注册
+          </el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -136,18 +136,19 @@
           if (valid) {
             self.$http.post("/api/user/login", self.form )
               .then( function ( res ) {
-              	// todo  使用set和get才能触发插件？
-//                self.$store.state.user = res.body
                 self.$store.commit( 'initSocket', self )
                 self.$store.commit( "initUser" , res.body )
-                //todo 流程完善后接触注释
-//                self.$store.state.io = io()
+
+                self.$router.push( "index" )
               } )
           }
         })
       },
       changeCaptchaImg () {
         this.captchaSrc = "http://localhost:3000/api/user/captcha/" + Math.random()
+      },
+      toSignup(){
+        this.$router.push( 'signup' )
       }
     }
   }

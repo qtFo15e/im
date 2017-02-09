@@ -70,16 +70,15 @@
             value: self.newMs
           }
         } , function () {
+          if ( self.$store.state.chatting.route === 'userMessage' ){
+            self.$store.state.user.contacts[ self.$store.state.chatting.receiver ].messageList.push( {
+              value: self.newMs,
+              name: self.$store.state.user.profile.name,
+              sender: self.$store.state.user.email
+            } )
+          }
+
           self.newMs = ''
-
-          if ( self.$store.state.chatting.route === 'imGroupMessage' ) return
-
-          self.$store.state.user.contacts[ self.$store.state.chatting.receiver ].messageList.push( {
-            value: self.newMs,
-            name: self.$store.state.user.profile.name,
-            sender: self.$store.state.user.email
-          } )
-
         })
       },
       init(){

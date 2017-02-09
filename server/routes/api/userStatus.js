@@ -16,7 +16,7 @@ function group( io, socket,data, callback , status ) {
 
         //todo 群组不显示用户状态
         // socket.broadcast.in( item ).emit( 'message', {
-        //   route: 'userStatus',
+        //   webSocketRoute: 'userStatus',
         //   event: status,
         //   body: {
         //     email: socket.handshake.session.email

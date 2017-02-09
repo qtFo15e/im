@@ -1,17 +1,30 @@
 <template>
-  <div id="app">
-    <chat-panel></chat-panel>
-    <login></login>
-    <!--<div v-if="this.$store.state.user.imGroup">-->
-      <!--<im-group-profile :info="this.$store.state.user.imGroup[0]"></im-group-profile>-->
-    <!--</div>-->
-    <find></find>
-    <list></list>
-    <signup></signup>
-    <profile></profile>
-    <photo></photo>
-    <profile-edit></profile-edit>
+  <div id="app" style="width: 960px;margin: auto;margin-top: 200px">
+    <el-dialog
+      size="small"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      :show-close="false"
+      v-model="nologged">
+      <router-view name="dialog">
+      </router-view>
+    </el-dialog>
+
+    <div v-if="this.$store.state.user.email">
+      <el-row>
+        <el-col :span="16">
+          <router-view name="main"></router-view>
+        </el-col>
+        <el-col :span="8">
+          <top style="margin-bottom: 20px"></top>
+          <list></list>
+        </el-col>
+      </el-row>
+    </div>
   </div>
+
+
+
 </template>
 
 <script>
@@ -24,6 +37,8 @@ import chatPanel from './components/chatPanel.vue'
 import list from './components/list.vue'
 import find from './components/find.vue'
 import imGroupProfile from './components/imGroupProfile.vue'
+import top from './components/top.vue'
+import index from  './components/index.vue'
 
 export default {
   name: 'app',
@@ -36,7 +51,24 @@ export default {
     chatPanel,
     list,
     find,
-    imGroupProfile
+    imGroupProfile,
+    top,
+    index
+  },
+  created(){
+    if ( this.nologged ) {
+    	//todo  有bug 再返回时对话框还在
+      this.$router.push('login')
+    }
+  },
+  data(){
+  	return {
+    }
+  },
+  computed: {
+  	nologged(){
+  		return !this.$store.state.user.email
+    }
   }
 }
 </script>
