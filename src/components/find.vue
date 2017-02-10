@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h3>查找联系人</h3>
+    <h3>查找</h3>
     <el-tabs v-model="active" type="card">
-      <el-tab-pane label="联系人" name="userRelation">
-        <div>
-          <el-input placeholder="请输入内容" v-model="contacts.value">
+      <el-tab-pane label="添加" name="userRelation" >
+        <div style="height: 180px;margin-top: 30px;width: 400px">
+          <el-input placeholder="请输入内容" v-model="contacts.value" >
             <el-select style="width: 100px" v-model="contacts.type" slot="prepend" placeholder="请选择">
               <el-option label="email" value="email"></el-option>
               <el-option label="用户名" value="profile.name"></el-option>
@@ -12,42 +12,41 @@
             <el-button slot="append" icon="search" @click="searchUser"></el-button>
           </el-input>
           <div>
-            <ul style="list-style: none">
               <user-detail-list-item
                 v-for="item in contactsArr"
                 :photo="'http://localhost:3000/api/user/captcha/init'"
                 :info="item">
               </user-detail-list-item>
-            </ul>
             <div v-if="contactsArr !== null && contactsArr.length === 0 ">
               未找此用户
             </div>
           </div>
         </div>
-      </el-tab-pane>
-      <el-tab-pane label="群组" name="imGroupRelation">
-        <div>
-          <el-input placeholder="请输入内容" v-model="imGroup.value">
-            <el-select style="width: 100px" v-model="imGroup.type" slot="prepend" placeholder="请选择">
-              <el-option label="群组ID" value="imGroupId"></el-option>
-              <el-option label="群组名" value="name"></el-option>
-            </el-select>
-            <el-button slot="append" icon="search" @click="searchImGroup"></el-button>
-          </el-input>
-        </div>
-        <div>
-          <ul style="list-style: none">
-              <detail-list-item
-                v-for="item in imGroupArr"
-                :photo="'http://localhost:3000/api/user/captcha/init'"
-                :info="item">
-              </detail-list-item>
-          </ul>
-          <div v-if="imGroupArr !== null && imGroupArr.length === 0 ">
-            未找到群组
+        <div style="height: 180px;width: 400px">
+            <el-input placeholder="请输入内容" v-model="imGroup.value" s>
+              <el-select style="width: 100px" v-model="imGroup.type" slot="prepend" placeholder="请选择">
+                <el-option label="群组ID" value="imGroupId"></el-option>
+                <el-option label="群组名" value="name"></el-option>
+              </el-select>
+              <el-button slot="append" icon="search" @click="searchImGroup"></el-button>
+            </el-input>
+          <div>
+            <detail-list-item
+              v-for="item in imGroupArr"
+              :photo="'http://localhost:3000/api/user/captcha/init'"
+              :info="item">
+            </detail-list-item>
+            <div v-if="imGroupArr !== null && imGroupArr.length === 0 ">
+              未找到群组
+            </div>
           </div>
         </div>
       </el-tab-pane>
+
+      <!--<el-tab-pane label="群组" name="imGroupRelation">-->
+
+      <!--</el-tab-pane>-->
+
       <el-tab-pane label="新建群" name="newImGroup">
         <el-form
           ref="newImGroupForm"
@@ -85,7 +84,7 @@
   export default {
     data() {
     	return {
-    		active: 'imGroupRelation',
+    		active: 'userRelation',
         contacts: {
     			type: "email",
           value: ""
@@ -144,8 +143,8 @@
               route: 'imGroupRelation',
               event: 'create',
               body: self.newGroupForm
-            }, function (groupId) {
-            	//todo
+            }, function ( imGroup ) {
+              self.$store.commit( 'addImGroup',imGroup )
             });
           }
         } )

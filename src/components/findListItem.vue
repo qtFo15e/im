@@ -1,18 +1,18 @@
 <template>
-  <li>
-    <el-row>
+  <div style="margin-top: 10px">
+    <el-row :gutter="10">
       <el-col :span="3" >
         <img :src="photo">
       </el-col>
-      <el-col :span="16">
+      <el-col :span="16" style="text-align: left">
         <div>{{ info.name }} ({{info.imGroupId}})</div>
         <div>{{ info.introduction }}</div>
       </el-col>
       <el-col :span="5">
-        <el-button :disabled="disabledJoin" @click="join" type="primary" icon="plus"></el-button>
+        <el-button :disabled="disabledJoin" @click="join" type="primary" icon="plus" size="small"></el-button>
       </el-col>
     </el-row>
-  </li>
+  </div>
 </template>
 
 <script>
@@ -42,7 +42,7 @@
                 type: 'success'
               });
 
-              self.$store.commit( 'addImGroupId', res.body )
+              self.$store.commit( 'addImGroup', res.body )
             } else {
               self.$notify({
                 title: '提示',

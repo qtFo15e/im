@@ -17,7 +17,7 @@ export default {
     state.io = io()
     app.login( state ,vm )
   },
-  //todo 都是数据结构的锅！！！
+
   addContacts( state, contacts ){
     var temp = {}
     temp[ contacts.email ] = {
@@ -26,15 +26,14 @@ export default {
     }
     state.user.contacts = Object.assign( {}, state.user.contacts, temp )
   },
-  addImGroupId( state, imGroup ){
+  addImGroup( state, imGroup ){
     var temp = {}
-    temp.messageList = []
     temp[ imGroup.imGroupId ]  = _.omit( imGroup, 'imGroupId' )
+    temp[ imGroup.imGroupId ].messageList = []
     state.user.imGroup = Object.assign( {}, state.user.imGroup, temp )
   }
 }
 
-//todo 对象比数组有查询优势
 function convertContacts( contacts ) {
   var result = {}
   _.each( contacts, function ( item ) {

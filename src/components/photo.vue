@@ -1,5 +1,5 @@
 <template>
-  <el-card style="width: 500px">
+  <div>
     <el-upload
       :on-success="fileLoaded"
       :before-upload="checkSize"
@@ -14,7 +14,7 @@
     </el-upload>
     <el-button type="primary" icon="upload2">关闭</el-button>
     <el-button type="info" icon="upload2">上传头像</el-button>
-  </el-card>
+  </div>
 
 </template>
 

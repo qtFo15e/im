@@ -10,7 +10,6 @@
           </chat-message>
         </div>
       </vue-scrollbar>
-
       <div style="margin-top: 20px">
         <el-input
           type="textarea"

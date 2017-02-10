@@ -10,14 +10,18 @@ module.exports = {
     io.mongo.collection( "imGroup" ).count()
       .then( function ( imGroupId ) {
         imGroupId = '' + imGroupId
-        io.mongo.collection( "imGroup" ).insertOne( {
+        var imGroup = {
           imGroupId: imGroupId,
           name: data.body.name,
           introduction: data.body.introduction,
           numbers: [socket.handshake.session.email ]
-        } )
+        }
+        io.mongo.collection( "imGroup" ).insertOne( imGroup )
           .then( function () {
-            callback( imGroupId )
+            return io.mongo.collection( "user" ).updateOne( { email: socket.handshake.session.email }, { $push: { imGroup: imGroupId} } )
+          } )
+          .then( function () {
+            callback( imGroup )
           } )
       } )
   },

@@ -1,42 +1,6 @@
 <template>
-<div style="width: 250px">
-  <!--<el-collapse v-model="activeRelation" accordion>-->
-    <!--<el-collapse-item title="在线" name="online">-->
-      <!--&lt;!&ndash; todo  遍历并判断  -> jsx 或 render 重写&ndash;&gt;-->
-      <!--&lt;!&ndash;todo v-for 中建立索引&ndash;&gt;-->
-      <!--<div style="padding: 0">-->
-        <!--<list-item-->
-          <!--v-for="(item,key) in this.$store.state.user.contacts"-->
-          <!--v-if="inOnlineContacts( key )"-->
-          <!--:photo="'http://localhost:3000/api/user/captcha/init'"-->
-          <!--:name="item.profile.name"-->
-          <!--:signature="item.profile.signature">-->
-        <!--</list-item>-->
-      <!--</div>-->
-    <!--</el-collapse-item>-->
-    <!--<el-collapse-item title="离线" name="outline">-->
-      <!--<div style="padding: 0">-->
-        <!--<list-item-->
-          <!--v-for="(item,key) in this.$store.state.user.contacts"-->
-          <!--v-if="!inOnlineContacts( key )"-->
-          <!--:photo="'http://localhost:3000/api/user/captcha/init'"-->
-          <!--:name="item.profile.name"-->
-          <!--:signature="item.profile.signature">-->
-        <!--</list-item>-->
-      <!--</div>-->
-    <!--</el-collapse-item>-->
-    <!--<el-collapse-item title="群组" name="imGroup">-->
-      <!--<div style="padding: 0">-->
-        <!--<list-item-->
-          <!--v-for="item in this.$store.state.user.imGroup"-->
-          <!--:photo="'http://localhost:3000/api/user/captcha/init'"-->
-          <!--:name="item.name"-->
-          <!--:signature="item.introduction">-->
-        <!--</list-item>-->
-      <!--</div>-->
-    <!--</el-collapse-item>-->
-  <!--</el-collapse>-->
-
+<div >
+  <!--&lt;!&ndash;todo v-for 中建立索引&ndash;&gt;-->
   <el-menu theme="dark"   mode="vertical" >
     <el-submenu index="online">
       <h4 slot="title">在线</h4>
@@ -47,6 +11,8 @@
         style="padding: 0"
         >
         <list-item
+          :hasNewMessage="item.hasNewMessage"
+          :toProfile="toProfile"
           :photo="'http://localhost:3000/api/user/captcha/init'"
           :name="item.profile.name"
           :signature="item.profile.signature"
@@ -63,6 +29,8 @@
         style="padding: 0"
       >
         <list-item
+          :hasNewMessage="false"
+          :toProfile="toProfile"
           :photo="'http://localhost:3000/api/user/captcha/init'"
           :name="item.profile.name"
           :signature="item.profile.signature"
@@ -76,6 +44,8 @@
         style="padding: 0"
         :index="key">
         <list-item
+          :hasNewMessage="item.hasNewMessage"
+          :toProfile="toImGroupProfile"
           :photo="'http://localhost:3000/api/user/captcha/init'"
           :name="item.name"
           :signature="item.introduction"
@@ -93,7 +63,6 @@
   export default {
     data() {
       return {
-        activeRelation: 'online',
       };
     },
     computed: {
@@ -103,6 +72,12 @@
       inOnlineContacts( email ){
       	//todo 控制组件初始化时机
         return this.$store.state.onlineContacts.includes( email )
+      },
+      toProfile(){
+      	this.$router.push( "profile" )
+      },
+      toImGroupProfile(){
+        this.$router.push( "imGroupProfile" )
       }
     },
     components: {

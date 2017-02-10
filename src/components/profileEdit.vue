@@ -18,7 +18,6 @@
             label="用户名"
             prop="name">
             <el-input
-              style="width: 198px"
               v-model="form.name"
               placeholder="16个字母或8个汉字之内"></el-input>
           </el-form-item>
@@ -95,10 +94,7 @@
           v-model="form.signature">
         </el-input>
       </el-form-item>
-      <el-form-item>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="default" @click="formClose">关闭</el-button>
+      <el-form-item style="text-align: right">
         <el-button type="primary" @click="formSubmit">保存</el-button>
       </el-form-item>
     </el-form>
@@ -195,6 +191,10 @@
 <style>
   .el-dragger__cover__interact .btn:nth-of-type(2) {
     visibility: hidden;
+  }
+
+  .el-date-editor.el-input {
+    width: 100%;
   }
 </style>
 

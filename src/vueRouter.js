@@ -49,6 +49,12 @@ const router = new VueRouter({
       }
     },
     {
+      path: "/imGroupProfile",
+      components: {
+        main: imGroupProfile
+      }
+    },
+    {
       path: "/chat",
       components: {
         main: chatPanel

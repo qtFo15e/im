@@ -1,18 +1,18 @@
 <template>
-  <li>
-    <el-row>
+  <div style="margin-top: 10px">
+    <el-row :gutter="10">
       <el-col :span="3" >
         <img :src="photo">
       </el-col>
-      <el-col :span="16">
+      <el-col :span="16" style="text-align: left">
         <div>{{ info.profile.name }} ({{info.email}})</div>
-        <div>{{ info.profile.signature }}</div>
+        <div class="signature" style="width: 100%">{{ info.profile.signature }}</div>
       </el-col>
       <el-col :span="5">
-        <el-button :disabled="disabledJoin" @click="add" type="primary" icon="plus"></el-button>
+        <el-button :disabled="disabledJoin" @click="add" type="primary" icon="plus" size="small"></el-button>
       </el-col>
     </el-row>
-  </li>
+  </div>
 </template>
 
 <script>
@@ -36,7 +36,6 @@
           self.disabledJoin = true
         	return
         }
-
 
         this.$store.state.io.emit( "message", {
             route: 'userRelation',
