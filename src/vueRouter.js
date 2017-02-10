@@ -31,7 +31,7 @@ const router = new VueRouter({
       }
     },
     {
-      path: "/",
+      path: "/index",
       components: {
         main: index
       }

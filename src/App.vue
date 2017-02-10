@@ -13,7 +13,10 @@
     <div v-if="this.$store.state.user.email">
       <el-row>
         <el-col :span="16">
-          <router-view name="main"></router-view>
+          <el-card style="width: 600px;height: 550px">
+            <router-view name="main"></router-view>
+          </el-card>
+
         </el-col>
         <el-col :span="8">
           <top style="margin-bottom: 20px"></top>

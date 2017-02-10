@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div>
+      <h1>Web IM</h1>
+    </div>
     <div style="font-weight: bold;color: #000066">
       <img :src="'http://localhost:3000/api/user/captcha/init'" >
       {{ this.$store.state.user.profile.name }}</div>

@@ -1,5 +1,5 @@
 <template>
-  <el-card style="width: 500px;">
+  <div>
     <h3>个人信息</h3>
     <el-form ref="form" :rules="rules" :model="form" label-width="90px">
       <el-row>
@@ -91,7 +91,7 @@
         prop="signature">
         <el-input
           type="textarea"
-          :autosize="{ minRows: 2, maxRows: 2}"
+          row="2"
           v-model="form.signature">
         </el-input>
       </el-form-item>
@@ -102,7 +102,7 @@
         <el-button type="primary" @click="formSubmit">保存</el-button>
       </el-form-item>
     </el-form>
-  </el-card>
+  </div>
 </template>
 
 <script>
@@ -178,8 +178,9 @@
       	var self = this
         this.$refs.form.validate( function ( valid ) {
           if ( valid ) {
+          	self.form.birthday = self.form.birthday.toLocaleDateString()
           	self.$http.post( '/api/profile/edit' , self.form, function ( res ) {
-
+              self.$store.state.user.profile = self.form
             })
           }
         } )

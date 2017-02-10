@@ -1,5 +1,5 @@
 <template>
-  <el-card style="width: 500px">
+  <div>
     <h3>查找联系人</h3>
     <el-tabs v-model="active" type="card">
       <el-tab-pane label="联系人" name="userRelation">
@@ -54,22 +54,26 @@
           :rules="rules"
           :model="newGroupForm">
           <el-form-item
+            style="width: 200px"
             label="群名"
             prop="name">
-            <el-input v-model="newGroupForm.name" placeholder="16个字母或8个汉字之内"></el-input>
+            <el-input v-model="newGroupForm.name" placeholder="16个字母或8个汉字之内" ></el-input>
           </el-form-item>
           <el-form-item
             label="简介"
             prop="introduction">
             <el-input
+              row="2"
               type="textarea"
               v-model="newGroupForm.introduction" placeholder="请输入内容"></el-input>
           </el-form-item>
+          <el-form-item style="text-align: right">
+            <el-button @click="createImGroup" type="primary"  style="width: 80px">创建</el-button>
+          </el-form-item>
         </el-form>
-        <el-button @click="createImGroup" type="primary">创建</el-button>
       </el-tab-pane>
     </el-tabs>
-  </el-card>
+  </div>
 </template>
 
 <script>
@@ -166,3 +170,9 @@
     }
   }
 </script>
+
+<style>
+  #app > div:nth-child(2) > div > div.el-col.el-col-16 > div > div > div > div > div.el-tabs__content > div:nth-child(3) > div > form > div.el-form-item.is-error.is-required > div {
+    width: 200px;
+  }
+</style>

@@ -55,7 +55,7 @@ app.use( function ( req, res, next ) {
     return req.path.startsWith( item )
   } )
 
-  if ( isNeedLogin && !req.session.user ) {
+  if ( isNeedLogin && !req.session.email ) {
     res.redirect('/');
   } else {
     next()

@@ -1,5 +1,5 @@
 <template>
-    <el-card style="width: 600px">
+    <div>
       <vue-scrollbar
         classes="my-scrollbar"
         ref="Scrollbar">
@@ -20,12 +20,12 @@
         </el-input>
       </div>
       <div>
-        <el-button @click="init">init</el-button>
-        <el-button @click="group">group</el-button>
+        <!--<el-button @click="init">init</el-button>-->
+        <!--<el-button @click="group">group</el-button>-->
         <el-button @click="close">关闭</el-button>
         <el-button @click="sendMessage" type="primary">发送</el-button>
       </div>
-    </el-card>
+    </div>
 </template>
 <script>
   import chatMessage from './chatMessage.vue'

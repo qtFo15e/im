@@ -1,5 +1,5 @@
 <template>
-<el-card style="width: 500px">
+<div>
   <h3>详细信息</h3>
   <el-row :gutter="20" class="myList">
     <el-col :span="6" class="listName">头像</el-col>
@@ -28,7 +28,7 @@
 
   <el-button type="info" icon="edit" @click="toEditProfile">修改个人信息</el-button>
   <el-button type="danger" icon="delete">删除好友</el-button>
-</el-card>
+</div>
 </template>
 
 <script>

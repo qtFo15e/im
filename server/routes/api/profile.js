@@ -25,7 +25,7 @@ router.get( '/photo', function ( req, res ) {
 
 router.post( '/edit', function ( req, res ) {
   req.mongo.collection( 'user' ).updateOne( { email: req.session.email }, { $set: { profile: req.body } }, function () {
-    res.end()
+    res.send( "ok" )
   } )
 })
 
