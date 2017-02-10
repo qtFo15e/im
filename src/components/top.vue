@@ -1,7 +1,8 @@
 <template>
-
   <div>
-    <div style="font-weight: bold;color: #000066">{{ this.$store.state.user.profile.name }}</div>
+    <div style="font-weight: bold;color: #000066">
+      <img :src="'http://localhost:3000/api/user/captcha/init'" >
+      {{ this.$store.state.user.profile.name }}</div>
     <el-button  icon="plus" @click="find"></el-button>
     <el-button  icon="edit" @click="editProfile"></el-button>
     <el-button  icon="document" @click="profile"></el-button>

@@ -1,7 +1,7 @@
 <template>
   <div id="app" style="width: 960px;margin: auto;margin-top: 200px">
     <el-dialog
-      size="small"
+      size="tiny"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
       :show-close="false"
@@ -22,9 +22,6 @@
       </el-row>
     </div>
   </div>
-
-
-
 </template>
 
 <script>
@@ -81,5 +78,16 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+#app > div.el-dialog__wrapper > div {
+  width: 360px;
+  border-radius: 4px;
+}
+#app > div.el-dialog__wrapper > div > div.el-dialog__header {
+  padding: 0;
+}
+#app > div.el-dialog__wrapper > div > div.el-dialog__body {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 </style>

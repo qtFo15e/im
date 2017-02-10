@@ -1,32 +1,27 @@
 <template>
-    <el-row style="margin: 10px;height: 50px">
-      <el-col :span="18" class="el-button el-button--default" style="display: block;border: none;padding: 0">
-        <el-row>
-          <el-col :span="6">
-            <img :src="photo" style="width: 30px;height: 30px">
-          </el-col>
-          <el-col :span="18" >
-            <div @click="toChat" style="background-color: #008800">{{ name }}</div>
-            <div>{{ signature }}</div>
-          </el-col>
-        </el-row>
+    <el-row style="line-height: 1.4;text-align: left" :gutter="10">
+      <el-col :span="6">
+        <img :src="photo" style="width: 100%;height:100%">
       </el-col>
-      <el-col :span="4" class="el-button el-button--default" style="display: block;border: none;padding: 0;margin: 0">
+      <el-col :span="18" >
         <el-row>
-          <el-col :span="24" style="height: 15px">
+          <el-col :span="18" >
+            <div @click="toChat">{{ name }}</div>
+          </el-col>
+          <el-col :span="6">
             <el-badge is-dot />
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="24">
-            <span  class="el-icon-menu" style="font-size: 15px"></span>
+          <el-col :span="18" >
+            <div>{{ signature }}</div>
+          </el-col>
+          <el-col :span="6">
+            <span  class="el-icon-menu" ></span>
           </el-col>
         </el-row>
-
       </el-col>
     </el-row>
-
-
 </template>
 
 <script>
