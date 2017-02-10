@@ -34,7 +34,7 @@ var session = require('express-session')
 var RedisStore = require('connect-redis')(session);
 var sessionInstance = session( {
   secret: config.myDev.secret,
-  name:"sessionID",
+  name:"imSessionID",
   resave: false,
   saveUninitialized: false,
   store: new RedisStore( {
@@ -46,7 +46,6 @@ var sessionInstance = session( {
 } )
 app.use( sessionInstance )
 const sharedsession = require("express-socket.io-session");
-
 
 
 //登录拦截

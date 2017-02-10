@@ -7,7 +7,7 @@
   </el-row>
   <el-row :gutter="20" class="myList">
     <el-col :span="6" class="listName">用户名</el-col>
-    <el-col :span="12" class="listValue">{{ name }}</el-col>
+    <el-col :span="12" class="listValue">{{ profile.name }}</el-col>
   </el-row>
   <el-row :gutter="20" class="myList">
     <el-col :span="6" class="listName">邮箱</el-col>
@@ -15,15 +15,15 @@
   </el-row>
   <el-row :gutter="20" class="myList">
     <el-col :span="6" class="listName">个人</el-col>
-    <el-col :span="12" class="listValue">{{ sex }} {{ birthday }} </el-col>
+    <el-col :span="12" class="listValue">{{ sex }} {{ profile.birthday }}(公历生日) </el-col>
   </el-row>
   <el-row :gutter="20" class="myList">
     <el-col :span="6" class="listName">地区</el-col>
-    <el-col :span="12" class="listValue">{{ province }} {{ city }} </el-col>
+    <el-col :span="12" class="listValue">{{ profile.province }} {{ profile.city }} </el-col>
   </el-row>
   <el-row :gutter="20" class="myList">
     <el-col :span="6" class="listName">签名</el-col>
-    <el-col :span="12" class="listValue">{{ signature }}</el-col>
+    <el-col :span="12" class="listValue">{{ profile.signature }}</el-col>
   </el-row>
 
   <el-button type="info" icon="edit" @click="toEditProfile">修改个人信息</el-button>
@@ -48,6 +48,9 @@
     computed: {
     	count() {
     		return this.$store.state.count
+      },
+      profile(){
+    		return this.$store.state.user.profile
       }
     },
     methods: {

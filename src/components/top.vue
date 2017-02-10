@@ -3,7 +3,7 @@
     <div>
       <h1>Web IM</h1>
     </div>
-    <div style="font-weight: bold;color: #000066">
+    <div style="font-weight: bold;color: #5e95b6">
       <img :src="'http://localhost:3000/api/user/captcha/init'" >
       {{ this.$store.state.user.profile.name }}</div>
     <el-button  icon="plus" @click="find"></el-button>

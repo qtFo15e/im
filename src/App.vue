@@ -5,7 +5,7 @@
       :close-on-click-modal="false"
       :close-on-press-escape="false"
       :show-close="false"
-      v-model="nologged">
+      v-model="notlogged">
       <router-view name="dialog">
       </router-view>
     </el-dialog>
@@ -56,19 +56,34 @@ export default {
     index
   },
   created(){
+    var self = this
+
+    this.$http.post( "/api/user/login", {} )
+      .then( function ( res ) {
+        if ( res.status === 200 ) {
+          self.$store.commit( 'initSocket', self )
+          self.$store.commit( "initUser" , res.body )
+
+          self.$router.push( "index" )
+        } else if ( res.status === 400 ) {
+          self.notlogged = true
+          this.$router.push('login')
+        }
+      } )
+
+
     if ( this.nologged ) {
     	//todo  有bug 再返回时对话框还在
-      this.$router.push('login')
+
     }
   },
   data(){
   	return {
+  		//todo v-model 不能用表达式 Assigning to rvalue
+  		notlogged: false
     }
   },
   computed: {
-  	nologged(){
-  		return !this.$store.state.user.email
-    }
   }
 }
 </script>

@@ -13,15 +13,7 @@ function group( io, socket,data, callback , status ) {
         } else {
           socket.leave( item )
         }
-
-        //todo 群组不显示用户状态
-        // socket.broadcast.in( item ).emit( 'message', {
-        //   webSocketRoute: 'userStatus',
-        //   event: status,
-        //   body: {
-        //     email: socket.handshake.session.email
-        //   }
-        // } );
+        //todo 群组不能显示用户状态
       } )
     } )
 }

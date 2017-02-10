@@ -57,37 +57,55 @@ router.get( '/captcha/:random', function ( req, res ) {
 } )
 
 
-router.post( '/login', function ( req, res ) {
-  //todo 有效性检查待添加
-  let { email , password: loginPassword, captcha } = req.body
-
-  req.mongo.collection( 'user' ).findOne( { email: req.body.email }, { fields: { _id: 0 } }, function ( err, doc ) {
-    if ( doc === null || loginPassword !== doc.password  ) {
-      res.status( 400 ).send( "账号不存在或密码错误" )
-    } else if ( captcha !== req.session.captcha ) {
-      res.status( 400 ).send( "验证码错误" )
-    } else {
-      if ( req.body.savePassword ) {
-        req.session.cookie.expires = new Date( new Date().getTime() + 36000000 )
-      }
-      req.session.email = email
-
-      //载入用户信息
-      let findImGroup = Promise.map( doc.imGroup, function ( imGroupId ) {
-        return req.mongo.collection( 'imGroup' ).findOne( { imGroupId: imGroupId }, { fields: { _id: 0 } } ).then()
-      } )
-      let findContacts = Promise.map( doc.contacts, function ( email ) {
-        return req.mongo.collection( 'user' ).findOne( { email: email }, { fields: { email: 1, profile: 1 , _id: 0 } } )
-      } )
-
-      Promise.all( [ findImGroup, findContacts ] )
-        .then( function ( [ imGroup, contacts ]  ) {
-            doc.imGroup = imGroup
-            doc.contacts = contacts
-            res.send( _.omit( doc, 'password' ) )
-        } )
-    }
+function loadUserInfo( req, res, doc ) {
+  let findImGroup = Promise.map( doc.imGroup, function ( imGroupId ) {
+    return req.mongo.collection( 'imGroup' ).findOne( { imGroupId: imGroupId }, { fields: { _id: 0 } } )
   } )
+  let findContacts = Promise.map( doc.contacts, function ( email ) {
+    return req.mongo.collection( 'user' ).findOne( { email: email }, { fields: { email: 1, profile: 1 , _id: 0 } } )
+  } )
+
+  Promise.all( [ findImGroup, findContacts ] )
+    .then( function ( [ imGroup, contacts ]  ) {
+      doc.imGroup = imGroup
+      doc.contacts = contacts
+      res.send( _.omit( doc, 'password' ) )
+    } )
+}
+
+router.post( '/login', function ( req, res ) {
+  //todo 有效性检查待添加\
+
+  if ( req.session.email ) {
+    req.mongo.collection( 'user' ).findOne( { email: req.session.email }, { fields: { _id: 0 } }, function ( err, doc ) {
+      if ( doc ){
+        loadUserInfo( req, res, doc )
+      } else {
+        res.status( 400 ).send( "未保存用户登录信息" )
+      }
+    })
+  } else {
+    let { email , password: loginPassword, captcha } = req.body
+
+    req.mongo.collection( 'user' ).findOne( { email: req.body.email }, { fields: { _id: 0 } }, function ( err, doc ) {
+      if ( doc === null || loginPassword !== doc.password  ) {
+        res.status( 400 ).send( "账号不存在或密码错误" )
+      } else if ( captcha !== req.session.captcha ) {
+        res.status( 400 ).send( "验证码错误" )
+      } else {
+        if ( req.body.savePassword ) {
+          req.session.cookie.expires = new Date( new Date().getTime() + 36000000 )
+        }
+        req.session.email = email
+
+        //载入用户信息
+        loadUserInfo( req, res, doc )
+      }
+    } )
+  }
+
+
+
 } )
 
 
