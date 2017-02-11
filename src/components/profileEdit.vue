@@ -8,6 +8,7 @@
             label="头像">
             <div style="text-align: left">
               <img  src="http://localhost:3000/api/user/captcha/init" >
+              <el-button type="text" @click="uploadPhtoto">上传</el-button>
             </div>
           </el-form-item>
         </el-col>
@@ -181,8 +182,8 @@
           }
         } )
       },
-      formClose () {
-
+      uploadPhtoto(){
+        this.$router.push( "uploadPhoto" )
       }
     }
   }

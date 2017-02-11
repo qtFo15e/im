@@ -1,7 +1,9 @@
 <template>
     <el-row style="line-height: 1.4;text-align: left;margin: 0" :gutter="10">
       <el-col :span="6">
-        <img :src="photo" style="width: 100%;height:100%">
+        <div style="height: 50px;width: 50px">
+          <img class="photo" src="'http://localhost:3000/api/user/captcha/init'">
+        </div>
       </el-col>
       <el-col :span="18" @click="selectChatting" >
         <el-row @click="toChat">

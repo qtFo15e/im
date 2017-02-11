@@ -6,7 +6,11 @@
           <el-row :gutter="20">
             <el-col v-for="item in info.numbers" :span="12">
               <el-row>
-                <el-col :span="8"><img src="'http://localhost:3000/api/user/captcha/init'"></el-col>
+                <el-col :span="8">
+                  <div style="height: 50px;width: 50px">
+                    <img class="photo" src="'http://localhost:3000/api/user/captcha/init'">
+                  </div>
+                </el-col>
                 <el-col :span="16">{{ item.name }}</el-col>
               </el-row>
             </el-col>

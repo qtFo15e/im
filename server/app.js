@@ -65,6 +65,7 @@ app.use( function ( req, res, next ) {
 
 
 app.use( function ( req, res, next ) {
+  req.ns = config.myDev.redisNamespace
   req.redis = redis
   req.util = util
   mongo.then( function ( db ) {

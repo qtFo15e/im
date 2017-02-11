@@ -2,7 +2,9 @@
   <div style="margin-top: 10px">
     <el-row :gutter="10">
       <el-col :span="3" >
-        <img :src="photo">
+        <div style="height: 50px;width: 50px">
+          <img class="photo" src="'http://localhost:3000/api/user/captcha/init'">
+        </div>
       </el-col>
       <el-col :span="16" style="text-align: left">
         <div>{{ info.name }} ({{info.imGroupId}})</div>

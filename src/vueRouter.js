@@ -10,10 +10,8 @@ import profile from './components/profile.vue'
 import profileEdit from './components/profileEdit.vue'
 import photo from  './components/photo.vue'
 import chatPanel from './components/chatPanel.vue'
-import list from './components/list.vue'
 import find from './components/find.vue'
 import imGroupProfile from './components/imGroupProfile.vue'
-import top from './components/top.vue'
 import index from  './components/index.vue'
 
 const router = new VueRouter({
@@ -64,6 +62,12 @@ const router = new VueRouter({
       path: "/find",
       components: {
         main: find
+      }
+    },
+    {
+      path:'/uploadPhoto',
+      components: {
+        main: photo
       }
     }
   ],

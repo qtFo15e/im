@@ -145,6 +145,10 @@
               body: self.newGroupForm
             }, function ( imGroup ) {
               self.$store.commit( 'addImGroup',imGroup )
+              self.newGroupForm = {
+                name: "",
+                introduction: ""
+              }
             });
           }
         } )

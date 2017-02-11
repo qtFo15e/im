@@ -74,9 +74,29 @@ function loadUserInfo( req, res, doc ) {
 }
 
 router.post( '/login', function ( req, res ) {
-  //todo 有效性检查待添加\
+  //todo 有效性检查待添加
+  //todo 同一浏览器多用户 清空cookie
+  //todo 同一浏览器登录多个用户
+  // if( req.session.email && req.body.email ) {
+  //
+  // }
+  //
+  // req.redis.hget( req.ns.SOCKET, req.session.email )
+  //   .then( function ( sockedId ) {
+  //     if ( sockedId ) {
+  //       res.status( 400 ).send( "用户已经登录" )
+  //       return false
+  //     }
+  //     return true
+  //   } )
+  //   .then( function ( unique ) {
+  //     if ( unique ) {
+  //
+  //     }
+  //   } )
 
-  if ( req.session.email ) {
+
+  if ( req.session.email && !req.body.email ) {
     req.mongo.collection( 'user' ).findOne( { email: req.session.email }, { fields: { _id: 0 } }, function ( err, doc ) {
       if ( doc ){
         loadUserInfo( req, res, doc )
@@ -103,10 +123,7 @@ router.post( '/login', function ( req, res ) {
       }
     } )
   }
-
-
-
-} )
+})
 
 
 router.get( '/logout', function ( req, res ) {
