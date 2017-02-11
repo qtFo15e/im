@@ -15,7 +15,6 @@
     <el-row>
       <el-col :span="6">
         <div style="height: 50px;width: 50px">
-          <!--'/api/profile/photo/' + this.$store.state.user.email-->
           <img class="photo" :src="this.$store.state.photo" >
         </div>
       </el-col>

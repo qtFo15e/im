@@ -5,7 +5,7 @@
     classes="list-scrollbar"
     ref="Scrollbar">
     <div>
-      <el-menu theme="dark"   mode="vertical"  @select="handleSelect" style="border-radius: 15px"  >
+      <el-menu theme="dark"   mode="vertical"  style="border-radius: 15px"  >
         <el-submenu index="online">
           <h4 slot="title">在线</h4>
           <el-menu-item
@@ -20,6 +20,7 @@
               :photo="'/api/profile/photo/' + key "
               :name="item.profile.name"
               :signature="item.profile.signature"
+              :group="'online'"
             ></list-item>
           </el-menu-item>
         </el-submenu>
@@ -37,6 +38,7 @@
               :photo="'/api/profile/photo/' + key "
               :name="item.profile.name"
               :signature="item.profile.signature"
+              :group="'outline'"
             ></list-item>
           </el-menu-item>
         </el-submenu>
@@ -53,6 +55,7 @@
               :photo="'/api/profile/photo/group'"
               :name="item.name"
               :signature="item.introduction"
+              :group="'group'"
             ></list-item>
           </el-menu-item>
         </el-submenu>
@@ -87,20 +90,6 @@
       },
       toImGroupProfile(){
         this.$router.push( "imGroupProfile" )
-      },
-      handleSelect( index, indexPath, instance ){
-        console.log( index )
-        console.log( indexPath )
-
-        if ( "" ) {
-
-        } else if( "" ) {
-
-        } else {
-
-        }
-
-//      	this.$router.push( 'chat' )
       }
     },
     components: {

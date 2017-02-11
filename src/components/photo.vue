@@ -34,7 +34,6 @@
         this.tooLarge = false
         //500KB
         const maxSize = 500000
-        debugger
         if (file.size > 500000){
           this.tooLarge = true
           return false

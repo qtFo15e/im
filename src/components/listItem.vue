@@ -1,7 +1,7 @@
 <template>
     <el-row style="line-height: 1.4;text-align: left;margin: 0" :gutter="10">
       <el-col :span="6">
-        <div style="height: 50px;width: 50px">
+        <div @click="toChat"  style="height: 50px;width: 50px">
           <img class="photo" :src="photo">
         </div>
       </el-col>
@@ -28,7 +28,7 @@
 
 <script>
   export default {
-  	props: [ 'name', 'signature', 'photo', "hasNewMessage", "receiver", 'route'],
+  	props: [ 'name', 'signature', 'photo', "hasNewMessage", "receiver", 'route','group'],
 
   	data(){
   		return {
@@ -48,8 +48,13 @@
         }
       },
       toChat(){
-//      	this.$router.push( 'chat' )
-        alert("chat")
+        if ( this.group !== 'outline' ) {
+          this.$store.state.chatting = {
+            receiver: this.receiver,
+            route: this.route
+          }
+          this.$router.push( "chat" )
+        }
       },
     }
   }

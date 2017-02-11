@@ -6,11 +6,6 @@ const redis = new Redis()
 const ns = require( "../../../config/index" ).myDev.redisNamespace
 
 
-redis
-  .multi()
-  .set( "chimeng@qq.com" + ns.SEPARATOR + ns.AUTH , "123456" )
-  .hmset( "chimeng@qq.com" + ns.SEPARATOR + ns.PROFILE , {
-      name: "chimeng",
-      age: "45",
-  } )
-  .exec( redis.print )
+redis,hget( "_SOCKET", "chi@qq.com" ).then( function ( a,c ) {
+  console.log( a, c )
+} )

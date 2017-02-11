@@ -17,7 +17,7 @@ router.post( "/photoUpload", upload.single('photo') ,function ( req, res ) {
 } )
 
 router.get( '/photo/:email', function ( req, res ) {
-  var email =  req.params.email === 'group'
+  var email =  req.params.email
   req.redis.getBuffer( email +  req.ns.SEPARATOR + req.ns.PHOTO , function ( err, result ) {
     res.type( 'png' ).send( result )
   } )

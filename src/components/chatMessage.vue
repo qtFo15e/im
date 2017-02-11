@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <el-row >
-      <el-col :span="24" style="text-align: left" v-bind:style="{color: message.sender === selfEmail ? '#000000': '#B32F98'}">
-        {{message.name}} {{ date.toLocaleDateString() }} {{ date.toLocaleTimeString() }}
-      </el-col>
-    </el-row>
-    <el-row >
-      <el-col :span="24"  style="text-align: left">{{message.value}}</el-col>
-    </el-row>
+  <div style="overflow: hidden">
+    <div style="border-radius: 5px;background-color: #58B7FF;float: left;text-align: left;padding: 3px 5px;margin-bottom: 10px"
+      v-bind:style="{float: message.sender === selfEmail ? 'left': 'right'}">
+      <div> {{message.name}} {{ date.toLocaleDateString() }} {{ date.toLocaleTimeString() }} </div>
+      <div> {{message.value}} </div>
+    </div>
   </div>
+
 
 </template>
 

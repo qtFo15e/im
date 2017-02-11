@@ -2,7 +2,7 @@
     <div>
       <vue-scrollbar
         classes="my-scrollbar"
-        ref="Scrollbar">
+        ref="chatScrollbar">
         <div class="scroll-me" >
           <chat-message
             v-for="item in messageList"
@@ -27,9 +27,6 @@
   import chatMessage from './chatMessage.vue'
   import VueScrollbar from 'vue2-scrollbar';
 
-  //todo 加载样式文件？？？？ 需要使用绝对路径？
-//  require("vue2-scrollbar/style/vue2-scrollbar.css")
-
   export default {
     data() {
     	return {
@@ -41,15 +38,13 @@
     	messageList(){
     		var self = this
         self.$nextTick( function () {
-          self.$refs.Scrollbar.scrollToY(9999)
+          self.$refs.chatScrollbar.scrollToY(9999)
         } )
         if ( this.$store.state.chatting.route === 'userMessage' ){
           return  this.$store.state.chatting.receiver ? this.$store.state.user.contacts[ this.$store.state.chatting.receiver ].messageList: []
         } else {
           return  this.$store.state.chatting.receiver ? this.$store.state.user.imGroup[ this.$store.state.chatting.receiver ].messageList: []
         }
-
-
       }
     },
     methods: {

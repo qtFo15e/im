@@ -7,7 +7,6 @@
 
 module.exports = {
   text: function ( io, socket, data, callback ) {
-    console.log( "s 收到" )
     socket.broadcast.to( data.body.receiver ).emit( 'message', {
       route: "imGroupMessage",
       event: "text",
