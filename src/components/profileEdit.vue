@@ -7,7 +7,9 @@
           <el-form-item
             label="头像">
             <div style="text-align: left">
-              <img  src="http://localhost:3000/api/user/captcha/init" >
+              <div style="height: 50px;width: 50px;display: inline-block">
+                <img class="photo" :src="this.$store.state.photo" >
+              </div>
               <el-button type="text" @click="uploadPhtoto">上传</el-button>
             </div>
           </el-form-item>

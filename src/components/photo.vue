@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin: auto;width: 370px">
     <el-upload
       :on-success="fileLoaded"
       :before-upload="checkSize"
@@ -28,7 +28,7 @@
     },
   	methods: {
       fileLoaded (res) {
-        this.photo = "http://localhost:3000/api/profile/photo"
+//        this.$store.state.photo = '/api/profile/photo/' + this.$store.state.user.email + "#" + Math.random()
       },
       checkSize (file) {
         this.tooLarge = false

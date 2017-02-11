@@ -2,7 +2,7 @@
     <el-row style="line-height: 1.4;text-align: left;margin: 0" :gutter="10">
       <el-col :span="6">
         <div style="height: 50px;width: 50px">
-          <img class="photo" src="'http://localhost:3000/api/user/captcha/init'">
+          <img class="photo" :src="photo">
         </div>
       </el-col>
       <el-col :span="18">

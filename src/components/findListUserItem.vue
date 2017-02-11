@@ -3,7 +3,7 @@
     <el-row :gutter="10">
       <el-col :span="3" >
         <div style="height: 50px;width: 50px">
-          <img class="photo" src="'http://localhost:3000/api/user/captcha/init'">
+          <img class="photo" :src="'/api/profile/photo/'+ info.email ">
         </div>
       </el-col>
       <el-col :span="16" style="text-align: left">

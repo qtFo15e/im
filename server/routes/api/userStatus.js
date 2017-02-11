@@ -13,7 +13,6 @@ function group( io, socket,data, callback , status ) {
         } else {
           socket.leave( item )
         }
-        //todo 群组不能显示用户状态
       } )
     } )
 }

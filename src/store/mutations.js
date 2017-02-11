@@ -10,8 +10,7 @@ export default {
     rowUserData.contacts = convertContacts( rowUserData.contacts )
     rowUserData.imGroup = convertImGroup( rowUserData.imGroup )
     state.user = rowUserData
-    //todo
-    state.user.photo = 'http://localhost:3000/api/profile/photo'
+    state.photo = '/api/profile/photo/' + rowUserData.email
   },
   initSocket( state, vm ){
     state.io = io()

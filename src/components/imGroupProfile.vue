@@ -5,18 +5,26 @@
         <div v-if="showNumbers">
           <el-row :gutter="20">
             <el-col v-for="item in info.numbers" :span="12">
-              <el-row>
-                <el-col :span="8">
-                  <div style="height: 50px;width: 50px">
-                    <img class="photo" src="'http://localhost:3000/api/user/captcha/init'">
+              <el-row style="padding-left: 50px">
+                <el-col :span="4" style="">
+                  <div style="height: 50px;width: 50px;text-align: right">
+                    <img class="photo" :src="'/api/profile/photo/' + item">
                   </div>
                 </el-col>
-                <el-col :span="16">{{ item.name }}</el-col>
+                <el-col  style="margin-top: 14px" :span="16">{{ item }}</el-col>
               </el-row>
             </el-col>
           </el-row>
         </div>
         <div v-else="showNumbers">
+          <el-row :gutter="20" class="myList" style="height: 50px">
+            <el-col :span="6" class="listName" style="height: 100%;"><div style="position: relative;bottom: -32px">头像</div></el-col>
+            <el-col :span="12" class="listValue">
+              <div style="height: 50px;width: 50px">
+                <img class="photo" :src="'/api/profile/photo/group'">
+              </div>
+            </el-col>
+          </el-row>
           <el-row :gutter="20" class="myList">
             <el-col :span="6" class="listName">群组名</el-col>
             <el-col :span="12" class="listValue">{{info.name}}</el-col>

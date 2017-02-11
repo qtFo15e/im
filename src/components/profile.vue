@@ -5,7 +5,7 @@
     <el-col :span="6" class="listName" style="height: 100%;"><div style="position: relative;bottom: -32px">头像</div></el-col>
     <el-col :span="12" class="listValue">
       <div style="height: 50px;width: 50px">
-        <img class="photo" src="'http://localhost:3000/api/user/captcha/init'">
+        <img class="photo" :src="this.$store.state.photo">
       </div>
     </el-col>
   </el-row>

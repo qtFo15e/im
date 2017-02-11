@@ -16,8 +16,9 @@ router.post( "/photoUpload", upload.single('photo') ,function ( req, res ) {
     } )
 } )
 
-router.get( '/photo', function ( req, res ) {
-  req.redis.getBuffer(  req.session.email +  req.ns.SEPARATOR + req.ns.PHOTO , function ( err, result ) {
+router.get( '/photo/:email', function ( req, res ) {
+  var email =  req.params.email === 'group'
+  req.redis.getBuffer( email +  req.ns.SEPARATOR + req.ns.PHOTO , function ( err, result ) {
     res.type( 'png' ).send( result )
   } )
 } )

@@ -17,7 +17,7 @@
               :receiver="key"
               route="userMessage"
               :hasNewMessage="item.hasNewMessage"
-              :photo="'http://localhost:3000/api/user/captcha/init'"
+              :photo="'/api/profile/photo/' + key "
               :name="item.profile.name"
               :signature="item.profile.signature"
             ></list-item>
@@ -34,7 +34,7 @@
               :receiver="key"
               route="userMessage"
               :hasNewMessage="false"
-              :photo="'http://localhost:3000/api/user/captcha/init'"
+              :photo="'/api/profile/photo/' + key "
               :name="item.profile.name"
               :signature="item.profile.signature"
             ></list-item>
@@ -50,7 +50,7 @@
               :receiver="key"
               route="imGroupMessage"
               :hasNewMessage="item.hasNewMessage"
-              :photo="'http://localhost:3000/api/user/captcha/init'"
+              :photo="'/api/profile/photo/group'"
               :name="item.name"
               :signature="item.introduction"
             ></list-item>

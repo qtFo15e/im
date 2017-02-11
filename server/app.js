@@ -25,11 +25,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.raw())
 app.use(bodyParser.text())
 app.use(cookieParser( config.myDev.secret ));
-//todo 暂时用不到
+
 // app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 // app.use(express.static(path.join(__dirname, 'public')));
 
-//todo 合并到一个数据库客户端
 var session = require('express-session')
 var RedisStore = require('connect-redis')(session);
 var sessionInstance = session( {
