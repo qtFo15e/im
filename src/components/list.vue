@@ -5,24 +5,23 @@
     classes="list-scrollbar"
     ref="Scrollbar">
     <div>
-      <el-menu theme="dark"   mode="vertical"  style="border-radius: 15px" >
+      <el-menu theme="dark"   mode="vertical"  @select="handleSelect" style="border-radius: 15px"  >
         <el-submenu index="online">
           <h4 slot="title">在线</h4>
           <el-menu-item
             v-for="(item,key) in this.$store.state.user.contacts"
             v-if="inOnlineContacts( key )"
             :index="key"
-            style="padding: 0"
-          >
+            style="padding: 0">
             <list-item
+              :receiver="key"
+              route="userMessage"
               :hasNewMessage="item.hasNewMessage"
-              :toProfile="toProfile"
               :photo="'http://localhost:3000/api/user/captcha/init'"
               :name="item.profile.name"
               :signature="item.profile.signature"
             ></list-item>
           </el-menu-item>
-
         </el-submenu>
         <el-submenu index="outline">
           <h4 slot="title">离线</h4>
@@ -30,11 +29,11 @@
             v-for="(item,key) in this.$store.state.user.contacts"
             v-if="!inOnlineContacts( key )"
             :index="key"
-            style="padding: 0"
-          >
+            style="padding: 0">
             <list-item
+              :receiver="key"
+              route="userMessage"
               :hasNewMessage="false"
-              :toProfile="toProfile"
               :photo="'http://localhost:3000/api/user/captcha/init'"
               :name="item.profile.name"
               :signature="item.profile.signature"
@@ -48,8 +47,9 @@
             style="padding: 0"
             :index="key">
             <list-item
+              :receiver="key"
+              route="imGroupMessage"
               :hasNewMessage="item.hasNewMessage"
-              :toProfile="toImGroupProfile"
               :photo="'http://localhost:3000/api/user/captcha/init'"
               :name="item.name"
               :signature="item.introduction"
@@ -59,7 +59,6 @@
       </el-menu>
     </div>
   </vue-scrollbar>
-
 </div>
 </template>
 
@@ -81,10 +80,27 @@
         return this.$store.state.onlineContacts.includes( email )
       },
       toProfile(){
-      	this.$router.push( "profile" )
+      	var self = this
+        console.log( self )
+//        console.log( self.)
+//        self.$router.push( "profile" )
       },
       toImGroupProfile(){
         this.$router.push( "imGroupProfile" )
+      },
+      handleSelect( index, indexPath, instance ){
+        console.log( index )
+        console.log( indexPath )
+
+        if ( "" ) {
+
+        } else if( "" ) {
+
+        } else {
+
+        }
+
+//      	this.$router.push( 'chat' )
       }
     },
     components: {
@@ -96,6 +112,6 @@
 
 <style>
   .list-scrollbar {
-    height: 200px;
+    height: 400px;
   }
 </style>

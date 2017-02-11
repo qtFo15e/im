@@ -32,7 +32,7 @@
   <el-row>
     <el-col :span="24" style="text-align: right">
       <el-button v-if="info.receiver === 'self'" type="info" icon="edit" @click="toEditProfile">修改个人信息</el-button>
-      <el-button v-else="" type="danger" icon="delete" >删除好友</el-button>
+      <el-button v-else="" type="danger" icon="delete" @click="deleteContacts" >删除好友</el-button>
     </el-col>
   </el-row>
 </div>
@@ -59,6 +59,20 @@
     methods: {
       toEditProfile(){
       	this.$router.push( "editProfile" )
+      },
+      deleteContacts(){
+        var self = this
+
+      	this.$store.state.io.emit( "message", {
+      		route: "userRelation",
+          event: 'delete',
+      		body: {
+            email: self.info.email
+          }
+        } , function () {
+          self.$store.commit( "deleteContacts", self.info.email )
+          self.$router.push( 'index' )
+        })
       }
     }
   }

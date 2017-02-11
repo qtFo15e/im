@@ -31,6 +31,12 @@ export default {
     temp[ imGroup.imGroupId ]  = _.omit( imGroup, 'imGroupId' )
     temp[ imGroup.imGroupId ].messageList = []
     state.user.imGroup = Object.assign( {}, state.user.imGroup, temp )
+  },
+  deleteContacts( state, email ) {
+    state.user.contacts = _.omit( state.user.contacts, email )
+  },
+  quitImGroup( state,imGroupId  ) {
+    state.user.imGroup = _.omit( state.user.imGroup, imGroupId )
   }
 }
 

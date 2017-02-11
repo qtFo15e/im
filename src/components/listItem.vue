@@ -5,18 +5,18 @@
           <img class="photo" src="'http://localhost:3000/api/user/captcha/init'">
         </div>
       </el-col>
-      <el-col :span="18" @click="selectChatting" >
-        <el-row @click="toChat">
+      <el-col :span="18">
+        <el-row >
           <el-col :span="18" >
-            <div >{{ name }}</div>
+            <div @click="toChat">{{ name }}</div>
           </el-col>
           <el-col :span="6">
             <el-badge is-dot v-if="hasNewMessage" />
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="18" class="signature" @click="toChat" >
-            {{ signature }}
+          <el-col :span="18" class="signature" >
+            <div @click="toChat" >{{ signature }}</div>
           </el-col>
           <el-col :span="6" style="text-align: center">
             <span  class="el-icon-menu" @click="toProfile"></span>
@@ -28,7 +28,7 @@
 
 <script>
   export default {
-  	props: [ 'name', 'signature', 'photo', 'toProfile', "hasNewMessage"],
+  	props: [ 'name', 'signature', 'photo', "hasNewMessage", "receiver", 'route'],
 
   	data(){
   		return {
@@ -36,13 +36,21 @@
       }
     },
     methods:{
+      toProfile(){
+        this.$store.state.chatting = {
+          receiver: this.receiver,
+          route: this.route
+        }
+      	if ( this.route === "userMessage" ) {
+          this.$router.push( "profile" )
+        } else {
+          this.$router.push( "imGroupProfile" )
+        }
+      },
       toChat(){
 //      	this.$router.push( 'chat' )
         alert("chat")
       },
-      selectChatting(){
-      	alert("slect")
-      }
     }
   }
 </script>

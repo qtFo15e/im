@@ -18,10 +18,7 @@
           v-model="newMs">
         </el-input>
       </div>
-      <div>
-        <el-button @click="init">init</el-button>
-        <el-button @click="group">group</el-button>
-        <el-button @click="close">关闭</el-button>
+      <div style="text-align: right">
         <el-button @click="sendMessage" type="primary">发送</el-button>
       </div>
     </div>
@@ -80,15 +77,6 @@
           self.newMs = ''
         })
       },
-      init(){
-        this.$store.state.chatting = this.$store.state.user.email === 'chi@qq.com'  ? { route:"userMessage", receiver: "123@qq.com" } : { route:"userMessage", receiver: "chi@qq.com" }
-      },
-      group(){
-        this.$store.state.chatting = { route:"imGroupMessage", receiver: "1" }
-      },
-      close(){
-
-      }
     },
     watch: {
       messageList(){

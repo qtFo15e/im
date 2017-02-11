@@ -77,7 +77,8 @@
       			imGroupId: self.info.imGroupId
           }
         }, function () {
-
+          self.$store.commit( "quitImGroup", self.info.imGroupId )
+          self.$router.push( 'index' )
         })
       }
     }

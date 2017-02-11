@@ -41,6 +41,8 @@ module.exports = {
   //todo 未测试
   'delete': function (io, socket, data, callback) {
     io.mongo.collection("user").updateOne({email: socket.handshake.session.email}, {$pull: {contacts: data.body.email}})
-      .then( callback )
+      .then( function () {
+        callback()
+      } )
   },
 }
