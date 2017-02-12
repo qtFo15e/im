@@ -16,7 +16,6 @@
             <list-item
               :receiver="key"
               route="userMessage"
-              :hasNewMessage="item.hasNewMessage"
               :photo="'/api/profile/photo/' + key "
               :name="item.profile.name"
               :signature="item.profile.signature"
@@ -34,7 +33,6 @@
             <list-item
               :receiver="key"
               route="userMessage"
-              :hasNewMessage="false"
               :photo="'/api/profile/photo/' + key "
               :name="item.profile.name"
               :signature="item.profile.signature"
@@ -51,7 +49,6 @@
             <list-item
               :receiver="key"
               route="imGroupMessage"
-              :hasNewMessage="item.hasNewMessage"
               :photo="'/api/profile/photo/group'"
               :name="item.name"
               :signature="item.introduction"

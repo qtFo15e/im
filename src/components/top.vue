@@ -24,7 +24,6 @@
       <el-button  icon="document" size="small" @click="profile"></el-button>
       <el-button  icon="close" size="small" @click="logout"></el-button>
     </el-row>
-
   </div>
 </template>
 
@@ -41,6 +40,7 @@
         this.$router.push( "profile" )
       },
   		logout(){
+      	//todo 触发disconnect事件
   			this.$store.state.io.disconnected = true
   			this.$store.state.io.connected = false
         this.$store.replaceState({

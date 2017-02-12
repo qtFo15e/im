@@ -29,6 +29,7 @@ export default {
     var temp = {}
     temp[ imGroup.imGroupId ]  = _.omit( imGroup, 'imGroupId' )
     temp[ imGroup.imGroupId ].messageList = []
+    temp[ imGroup.imGroupId ].hasNewMessage = false
     state.user.imGroup = Object.assign( {}, state.user.imGroup, temp )
   },
   deleteContacts( state, email ) {
@@ -44,7 +45,8 @@ function convertContacts( contacts ) {
   _.each( contacts, function ( item ) {
     result[ item.email ] = {
       profile: item.profile,
-      messageList: []
+      messageList: [],
+      hasNewMessage: false
     }
   } )
   return result

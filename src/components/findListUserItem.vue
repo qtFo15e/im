@@ -6,7 +6,8 @@
           <img class="photo" :src="'/api/profile/photo/'+ info.email ">
         </div>
       </el-col>
-      <el-col :span="16" style="text-align: left">
+      <!--todo img待抽象成组件-->
+      <el-col :span="16" style="text-align: left;padding-top: 7px;">
         <div>{{ info.profile.name }} ({{info.email}})</div>
         <div class="signature" style="width: 100%">{{ info.profile.signature }}</div>
       </el-col>

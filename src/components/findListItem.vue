@@ -6,8 +6,8 @@
           <img class="photo" src="/api/profile/photo/group">
         </div>
       </el-col>
-      <el-col :span="16" style="text-align: left">
-        <div>{{ info.name }} ({{info.imGroupId}})</div>
+      <el-col :span="16" style="text-align: left;padding-top: 7px;">
+        <div>{{ info.name }}, ({{info.imGroupId}})</div>
         <div>{{ info.introduction }}</div>
       </el-col>
       <el-col :span="5">

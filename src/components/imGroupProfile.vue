@@ -43,7 +43,7 @@
           </el-row>
         </div>
       </div>
-      <el-row :gutter="20" class="myList">
+      <el-row :gutter="20" class="myList" style="margin-top: 30px">
         <el-col :span="12">
         <span>
           <el-switch
