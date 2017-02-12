@@ -1,5 +1,6 @@
 <template>
     <div>
+      <div style="text-align: left;font-weight: bold;border-bottom: 1px solid #747474;margin-bottom: 20px;width: 50%;padding-bottom: 5px">{{ this.$store.state.chatting.name }}</div>
       <vue-scrollbar
         classes="my-scrollbar"
         ref="chatScrollbar">
@@ -12,13 +13,13 @@
       </vue-scrollbar>
       <div style="margin-top: 20px">
         <el-input
+          class="newMs"
           type="textarea"
-          autosize
           placeholder="请输入内容"
           v-model="newMs">
         </el-input>
       </div>
-      <div style="text-align: right">
+      <div style="text-align: right;margin-top: 5px">
         <el-button @click="sendMessage" type="primary">发送</el-button>
       </div>
     </div>
@@ -67,17 +68,17 @@
               name: self.$store.state.user.profile.name,
               sender: self.$store.state.user.email
             } )
+          } else {
+            self.$store.state.user.imGroup[ self.$store.state.chatting.receiver ].messageList.push( {
+              value: self.newMs,
+              name: self.$store.state.user.profile.name,
+              sender: self.$store.state.user.email
+            } )
           }
 
           self.newMs = ''
         })
       },
-    },
-    watch: {
-      messageList(){
-      	var self = this
-
-      }
     },
     components: {
       chatMessage,
@@ -87,8 +88,13 @@
 </script>
 
 <style>
+  .newMs textarea{
+    height: 105px;
+    max-height: 105px;
+  }
+
   .my-scrollbar {
-    height: 100px;
+    height: 270px;
   }
   /*The Content*/
   .scroll-me {

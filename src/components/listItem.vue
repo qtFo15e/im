@@ -39,7 +39,8 @@
       toProfile(){
         this.$store.state.chatting = {
           receiver: this.receiver,
-          route: this.route
+          route: this.route,
+          name: this.name
         }
       	if ( this.route === "userMessage" ) {
           this.$router.push( "profile" )
@@ -51,7 +52,8 @@
         if ( this.group !== 'outline' ) {
           this.$store.state.chatting = {
             receiver: this.receiver,
-            route: this.route
+            route: this.route,
+            name: this.name
           }
           this.$router.push( "chat" )
         }

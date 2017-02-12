@@ -62,7 +62,7 @@
             label="简介"
             prop="introduction">
             <el-input
-              row="2"
+              class="findTextarea"
               type="textarea"
               v-model="newGroupForm.introduction" placeholder="请输入内容"></el-input>
           </el-form-item>
@@ -177,5 +177,10 @@
 <style>
   #app > div:nth-child(2) > div > div.el-col.el-col-16 > div > div > div > div > div.el-tabs__content > div:nth-child(3) > div > form > div.el-form-item.is-error.is-required > div {
     width: 200px;
+  }
+
+  .findTextarea textarea{
+    height: 63px;
+    max-height: 63px;
   }
 </style>

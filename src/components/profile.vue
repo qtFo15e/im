@@ -30,7 +30,7 @@
     <el-col :span="12" class="listValue">{{ info.signature }}</el-col>
   </el-row>
   <el-row>
-    <el-col :span="24" style="text-align: right">
+    <el-col :span="24" style="text-align: right;margin-top: 50px">
       <el-button v-if="info.receiver === 'self'" type="info" icon="edit" @click="toEditProfile">修改个人信息</el-button>
       <el-button v-else="" type="danger" icon="delete" @click="deleteContacts" >删除好友</el-button>
     </el-col>

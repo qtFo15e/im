@@ -5,7 +5,7 @@
     classes="list-scrollbar"
     ref="Scrollbar">
     <div>
-      <el-menu theme="dark"   mode="vertical"  style="border-radius: 15px"  >
+      <el-menu theme="dark"   mode="vertical"  style=""  >
         <el-submenu index="online">
           <h4 slot="title">在线</h4>
           <el-menu-item

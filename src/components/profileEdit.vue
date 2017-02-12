@@ -92,8 +92,8 @@
         label="个人签名"
         prop="signature">
         <el-input
+          class="profileTextarea"
           type="textarea"
-          row="2"
           v-model="form.signature">
         </el-input>
       </el-form-item>
@@ -192,6 +192,11 @@
 </script>
 
 <style>
+  .profileTextarea textarea {
+    height: 63px;
+    max-height: 63px;
+  }
+
   .el-dragger__cover__interact .btn:nth-of-type(2) {
     visibility: hidden;
   }

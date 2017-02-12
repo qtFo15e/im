@@ -1,5 +1,5 @@
 <template>
-  <div id="app" style="width: 900px;margin: auto;margin-top: 200px">
+  <div id="app" style="width: 900px;margin: auto;margin-top: 100px">
     <el-dialog
       size="tiny"
       :close-on-click-modal="false"
@@ -13,7 +13,7 @@
     <div v-if="this.$store.state.user.email">
       <el-row>
         <el-col :span="18">
-          <el-card style="width: 600px;height: 550px;border-radius: 15px">
+          <el-card style="width: 600px;height: 515px;border-radius: 15px">
             <router-view name="main"></router-view>
           </el-card>
         </el-col>
@@ -89,5 +89,9 @@ export default {
 #app > div.el-dialog__wrapper > div > div.el-dialog__body {
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+textarea {
+  resize: none;
 }
 </style>
