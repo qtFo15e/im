@@ -9,6 +9,9 @@ npm run start
 
 ##演示视频
 ### https://pan.baidu.com/s/1bo0Uoph
+![登录](https://github.com/qtFo15e/im/blob/master/demo/登录.png)
 ![主题动画](https://github.com/qtFo15e/im/blob/master/demo/主题动画.png)
-
-im/README.md
+![添加好友](https://github.com/qtFo15e/im/blob/master/demo/添加好友.png)
+![用户信息](https://github.com/qtFo15e/im/blob/master/demo/用户信息.png)
+![私聊](https://github.com/qtFo15e/im/blob/master/demo/私聊.png)
+![群聊](https://github.com/qtFo15e/im/blob/master/demo/群聊.png)
