@@ -9,4 +9,5 @@ npm run start
 
 ##演示视频
 ### https://pan.baidu.com/s/1bo0Uoph
+![主题动画](https://github.com/qtFo15e/im/demo/主题动画.png)
 
