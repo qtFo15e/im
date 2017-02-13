@@ -70,7 +70,7 @@
           if ( this.group === 'online' ) {
             this.$store.state.user.contacts[ this.receiver ].hasNewMessage = false
           } else if ( this.group === 'group' ) {
-            return this.$store.state.user.imGroup[ this.receiver ].hasNewMessage = false
+            this.$store.state.user.imGroup[ this.receiver ].hasNewMessage = false
           }
 
           this.$router.push( "chat" )

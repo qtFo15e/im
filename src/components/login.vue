@@ -83,8 +83,8 @@
     data () {
       return {
         form: {
-          email: "123@qq.com",
-          password: "123456",
+          email: "",
+          password: "",
           captcha: "",
           savePassword: true
         },
