@@ -1,13 +1,9 @@
-# im
-> 即时通讯系统
-###还在开发中
-
+# WebIM 即时通讯应用
 ##启动方法
 ### install dependencies
 npm install
-### 先启动mongoDB, redis数据库 
 ### serve with hot reload at localhost:3000
-npm run start
+先启动mongoDB, redis数据库 ，然后 npm run start
 
 ##演示视频
 ### 连接:https://pan.baidu.com/s/1bo0Uoph
