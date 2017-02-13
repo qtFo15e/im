@@ -8,7 +8,8 @@ npm install
 npm run start
 
 ##演示视频
-### https://pan.baidu.com/s/1bo0Uoph
+### 连接:https://pan.baidu.com/s/1bo0Uoph
+### 视频截图:
 ![登录](https://github.com/qtFo15e/im/blob/master/demo/登录.png)
 ![主题动画](https://github.com/qtFo15e/im/blob/master/demo/主题动画.png)
 ![添加好友](https://github.com/qtFo15e/im/blob/master/demo/添加好友.png)
