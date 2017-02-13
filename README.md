@@ -1,9 +1,11 @@
 # im
-
 > 即时通讯系统
+###还在开发中
+
 ##启动方法
 ### install dependencies
 npm install
+### 先启动mongoDB, redis数据库 
 ### serve with hot reload at localhost:3000
 npm run start
 
