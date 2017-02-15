@@ -77,25 +77,6 @@ router.post( '/login', function ( req, res ) {
   //todo 有效性检查待添加
   //todo 同一浏览器多用户 清空cookie
   //todo 同一浏览器登录多个用户
-  // if( req.session.email && req.body.email ) {
-  //
-  // }
-  //
-  // req.redis.hget( req.ns.SOCKET, req.session.email )
-  //   .then( function ( sockedId ) {
-  //     if ( sockedId ) {
-  //       res.status( 400 ).send( "用户已经登录" )
-  //       return false
-  //     }
-  //     return true
-  //   } )
-  //   .then( function ( unique ) {
-  //     if ( unique ) {
-  //
-  //     }
-  //   } )
-
-
   if ( req.session.email && !req.body.email ) {
     req.mongo.collection( 'user' ).findOne( { email: req.session.email }, { fields: { _id: 0 } }, function ( err, doc ) {
       if ( doc ){
@@ -104,9 +85,8 @@ router.post( '/login', function ( req, res ) {
         res.status( 400 ).send( "未保存用户登录信息" )
       }
     })
-  } else {
+  } else if ( req.body.email && !req.session.email ) {
     let { email , password: loginPassword, captcha } = req.body
-
     req.mongo.collection( 'user' ).findOne( { email: req.body.email }, { fields: { _id: 0 } }, function ( err, doc ) {
       if ( doc === null || loginPassword !== doc.password  ) {
         res.status( 400 ).send( "账号不存在或密码错误" )
@@ -122,6 +102,8 @@ router.post( '/login', function ( req, res ) {
         loadUserInfo( req, res, doc )
       }
     } )
+  } else if ( !req.body.email && !req.session.email ){
+    res.status( 400 ).send( '请登录' )
   }
 })
 

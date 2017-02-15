@@ -52,7 +52,7 @@ export default {
       } )
       .catch( function ( res ) {
         if ( res.status === 400 ) {
-          this.$router.push('login')
+          self.$router.push('login')
         }
       } )
 

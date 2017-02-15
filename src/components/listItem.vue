@@ -36,7 +36,6 @@
     },
     computed:{
       hasNewMessage(){
-//      	debugger
         if ( this.group === 'online' ) {
           return this.$store.state.user.contacts[ this.receiver ].hasNewMessage
         } else if ( this.group === 'group' ) {

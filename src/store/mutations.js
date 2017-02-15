@@ -56,6 +56,7 @@ function convertImGroup ( imGroup ) {
   var result = {}
   _.each( imGroup, function ( item ) {
     result[ item.imGroupId ] = {
+      hasNewMessage: false,
       name: item.name,
       introduction: item.introduction,
       numbers: item.numbers,
