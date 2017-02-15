@@ -22,5 +22,5 @@ npm install
 ![用户信息](https://github.com/qtFo15e/im/blob/master/demo/用户信息.png)
 ![私聊](https://github.com/qtFo15e/im/blob/master/demo/私聊.png)
 ![群聊](https://github.com/qtFo15e/im/blob/master/demo/群聊.png)
-### https://pan.baidu.com/s/1bPsWSA
+
 
