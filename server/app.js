@@ -10,6 +10,9 @@ var redis = require( "../db/redis/index" )
 var mongo = require( '../db/mongodb/index' )
 var util = require( '../util/index' )
 var userStatus = require( './routes/api/userStatus' )
+var fs = require("fs")
+var ss = require('socket.io-stream');
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'));
 
 var app = express();
 
@@ -19,7 +22,16 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev', {stream: accessLogStream}));
 app.use(logger('dev'));
+
+
+
+app.get( "/test", function ( req, res ) {
+  res.send( "ok" )
+} )
+
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.raw())
@@ -27,7 +39,7 @@ app.use(bodyParser.text())
 app.use(cookieParser( config.myDev.secret ));
 
 // app.use(require('stylus').middleware(path.join(__dirname, 'public')));
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 var session = require('express-session')
 var RedisStore = require('connect-redis')(session);
@@ -103,11 +115,6 @@ app.use(hotMiddleware);
 // }))
 
 
-app.post( "/test", function ( req, res ) {
-
-} )
-
-
 app.use( "/api", router.expressRouter)
 
 app.get( "/", require( "./routes/index" ) )
@@ -116,11 +123,14 @@ app.get( "/", require( "./routes/index" ) )
 var debug = require('debug')('im:server');
 var http = require('http');
 var port = '3000';
-var server = http.createServer(app).listen(port);
+var server = http.createServer(app).listen(port, '0.0.0.0');
+// var server = http.createServer(app).listen(port);
+
 var io = require( "socket.io" )( server )
 io.use(sharedsession( sessionInstance ));
 
-
+//todo 清在线状态
+redis.del( '_SOCKET' )
 //todo 登录过滤
 io.on( "connection" , function ( socket ) {
 
@@ -129,14 +139,14 @@ io.on( "connection" , function ( socket ) {
 
   io.redis = redis
   io.ns = config.myDev.redisNamespace
-
+  console.log(11111111111111111111)
   mongo.then( function ( db ) {
     io.mongo = db
 
     // websocket是双向的， 逻辑上最好把client作为主动方
     //userStatus.login( io, socket )
 
-    socket.on( "message", function ( data, callback  ) {
+    socket.on( "message", function (data, callback  ) {
       router.ioRouter( io, socket, data, callback )
     } )
 
@@ -146,8 +156,5 @@ io.on( "connection" , function ( socket ) {
     })
 
   } )
-
-
-
 })
 
