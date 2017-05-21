@@ -7,8 +7,9 @@ module.exports = {
     var user = state.user.contacts[ res.body.sender ] || state.user
     res.body.name = user.profile.name
     state.user.imGroup[ res.body.receiver ].messageList.push( res.body )
-    if ( state.chatting.receiver !== res.body.sender ) {
+    if ( state.chatting.receiver !== res.body.receiver  ) {
       state.user.imGroup[res.body.receiver ].hasNewMessage = true
     }
+    document.getElementById( "tipSound" ).play()
   }
 }
