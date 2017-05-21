@@ -17,7 +17,7 @@ router.post( "/signup", function ( req, res ) {
     contacts: [],
     imGroup: [],
   }, function () {
-    res.end()
+    res.send( "注册成功" )
   } )
 } )
 
@@ -109,6 +109,7 @@ router.post( '/login', function ( req, res ) {
 
 
 router.get( '/logout', function ( req, res ) {
+  //todo session清了, cookie倒是没清，清一个就起作用
   req.session.destroy( function () {
     res.clearCookie( 'sessionID' ).send( "退出成功" )
   } )

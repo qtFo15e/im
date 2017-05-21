@@ -39,6 +39,9 @@ module.exports = {
               io.mongo.collection( "user" ).updateOne( { email: socket.handshake.session.email } , { $push: { imGroup: data.body.imGroupId } } )
             } )
             .then( function () {
+              socket.join( data.body.imGroupId )
+            } )
+            .then( function () {
               //todo 后端只穿部分信息，前端整合，可以节省带宽
               return io.mongo.collection( "imGroup" ).findOne( { imGroupId: data.body.imGroupId }, { fields: { _id: 0 } } )
             } )

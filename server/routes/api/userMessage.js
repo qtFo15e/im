@@ -16,7 +16,8 @@ module.exports = {
     } )
     callback()
   },
-  file: function ( io, socket, data, callback ) {
-
+  file: function ( io, socket, data, callback , stream) {
+    var filename = path.basename(data.name);
+    stream.pipe(fs.createWriteStream(filename));
   }
 }
