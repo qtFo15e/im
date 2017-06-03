@@ -13,6 +13,7 @@ import chatPanel from './components/chatPanel.vue'
 import find from './components/find.vue'
 import imGroupProfile from './components/imGroupProfile.vue'
 import index from  './components/index.vue'
+import weather from  './components/weather.vue'
 
 const router = new VueRouter({
   routes: [
@@ -68,6 +69,12 @@ const router = new VueRouter({
       path:'/uploadPhoto',
       components: {
         main: photo
+      }
+    },
+    {
+      path:'/weather',
+      components: {
+        main: weather
       }
     }
   ],

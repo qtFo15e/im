@@ -10,6 +10,9 @@ module.exports = {
     if ( state.chatting.receiver !== res.body.receiver  ) {
       state.user.imGroup[res.body.receiver ].hasNewMessage = true
     }
-    document.getElementById( "tipSound" ).play()
+    if ( state.sound ) {
+      document.getElementById( "tipSound" ).play()
+    }
+
   }
 }

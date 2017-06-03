@@ -13,7 +13,9 @@ const state = {
   io: null,
   onlineContacts:[],
   chatting: {},
-  photo: ""
+  photo: "",
+  sound: true,
+  newMs: ""
 }
 
 export default new vuex.Store( {

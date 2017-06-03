@@ -6,9 +6,9 @@ const _ = require( "underscore" )
 
 
 function realLength( str ) {
-    let appendLength = 0
-    for ( let char of str ) {
-        let code = char.codePointAt(0)
+    var appendLength = 0
+    for ( var  char of str ) {
+        var code = char.codePointAt(0)
         if ( !(code >= 0 && code <= 128) ) {
            appendLength++
         }

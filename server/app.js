@@ -58,6 +58,15 @@ var sessionInstance = session( {
 app.use( sessionInstance )
 const sharedsession = require("express-socket.io-session");
 
+//todo 清在线状态
+redis.del( '_SOCKET' )
+redis.keys( "_SESSION:*" ).then( function ( arr ) {
+  arr.forEach( function ( item ) {
+    redis.del( item )
+  } )
+} )
+
+
 
 //登录拦截
 app.use( function ( req, res, next ) {
@@ -79,6 +88,15 @@ app.use( function ( req, res, next ) {
   req.ns = config.myDev.redisNamespace
   req.redis = redis
   req.util = util
+
+  //todo 清在线状态, 不能放在中间件里 否则每次都执行
+  // redis.del( '_SOCKET' )
+  // redis.keys( "_SESSION:*" ).then( function ( arr ) {
+  //   arr.forEach( function ( item ) {
+  //     redis.del( item )
+  //   } )
+  // } )
+
   mongo.then( function ( db ) {
     req.mongo = db
     next()
@@ -129,8 +147,7 @@ var server = http.createServer(app).listen(port, '0.0.0.0');
 var io = require( "socket.io" )( server )
 io.use(sharedsession( sessionInstance ));
 
-//todo 清在线状态
-redis.del( '_SOCKET' )
+
 //todo 登录过滤
 io.on( "connection" , function ( socket ) {
 

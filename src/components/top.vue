@@ -1,16 +1,17 @@
 <template>
-  <div>
+  <div style="background: #c8c8c8;padding-top: 5px;padding-bottom: 5px">
     <el-row>
-      <el-col :span="12" style="">
-        <span style="float: left;font-style: italic;font-size: 20px;color: #8492a6; border-bottom: 1px solid #5e5e5e">Web IM</span>
+      <el-col :span="24" style="">
+        <span style="float: left;font-weight: bold;font-size: 20px;color: #8492a6;margin-left: 10px ">Web IM</span>
         <!--<el-button style="float: right;padding: 0"  icon="close" @click="logout" type="text"></el-button>-->
+        <el-button style="float: right;margin-right: 10px" icon="close" size="small" type="text" @click="logout"></el-button>
       </el-col>
     </el-row>
 
     <el-row style="margin-top: 10px">
       <el-col :span="6">
         <div style="height: 50px;width: 50px">
-          <img class="photo" :src="this.$store.state.photo" >
+          <img  id="myPhoto" class="photo" :src="this.$store.state.photo" >
         </div>
       </el-col>
       <el-col :span="18" style="text-align: left;padding-top: 7px">
@@ -18,56 +19,44 @@
         <div class="signature">{{ this.$store.state.user.profile.signature }}</div>
       </el-col>
     </el-row>
-    <el-row class="buttonList" style="margin-top: 10px">
-      <el-button  icon="star-on" size="small" @click="toIndex"></el-button>
-      <el-button  icon="plus" size="small" @click="find" ></el-button>
-      <el-button  icon="document" size="small" @click="profile"></el-button>
-      <el-button  icon="close" size="small" @click="logout"></el-button>
-    </el-row>
   </div>
 </template>
 
 <script>
   export default {
   	methods: {
-  		find(){
-        this.$router.push( "find" )
-      },
-      profile(){
-  			this.$store.state.chatting = {
-  				receiver: this.$store.state.user.email
-        }
-        this.$router.push( "profile" )
-      },
+
   		logout(){
-      	//todo 触发disconnect事件
-  			this.$store.state.io.disconnected = true
-  			this.$store.state.io.connected = false
-        this.$store.replaceState({
-          user: {},
-          io: null,
-          onlineContacts:[],
-          chatting: {}
+      	var  self = this
+
+        this.$store.state.io.emit( "message", {
+          route: "userStatus",
+          event: "logout",
+          body: {
+
+          }
+        }, function () {
+          //todo 触发disconnect事件
+//          this.$store.state.io.disconnected = true
+//          this.$store.state.io.connected = false
         })
-        this.$router.push( 'login' )
+
+        self.$http.get("/api/user/logout" )
+          .then( function ( res ) {
+            self.$store.replaceState({
+              user: {},
+              io: null,
+              onlineContacts:[],
+              chatting: {}
+            })
+            self.$router.push( 'login' )
+          } )
       },
-      toIndex(){
-        this.$router.push( 'index' )
-      },
-      setting(){
-  			//todo 消息提示开关等
-      }
+
     }
   }
 </script>
 
 <style>
-  .photo{
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-  }
-  .buttonList .el-button+.el-button {
-    margin-left: 12px;
-  }
+
 </style>

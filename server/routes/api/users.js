@@ -88,11 +88,12 @@ router.post( '/login', function ( req, res ) {
   } else if ( req.body.email && !req.session.email ) {
     let { email , password: loginPassword, captcha } = req.body
     req.mongo.collection( 'user' ).findOne( { email: req.body.email }, { fields: { _id: 0 } }, function ( err, doc ) {
-      if ( doc === null || loginPassword !== doc.password  ) {
-        res.status( 400 ).send( "账号不存在或密码错误" )
-      } else if ( captcha !== req.session.captcha ) {
+      if (  captcha !== req.session.captcha  ) {
         res.status( 400 ).send( "验证码错误" )
+      } else if ( doc === null || loginPassword !== doc.password ) {
+        res.status( 400 ).send( "账号不存在或密码错误" )
       } else {
+        //todo 记住密码，但刷新应用时要庆cookie ，session
         if ( req.body.savePassword ) {
           req.session.cookie.expires = new Date( new Date().getTime() + 36000000 )
         }

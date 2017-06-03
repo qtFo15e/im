@@ -141,9 +141,19 @@
 
         this.$refs.form.validate( function ( valid ) {
           if ( valid ) {
-            self.$http.post("/api/user/signup", self.form, function (res) {
+            self.$http.post("/api/user/signup", self.form)
+              .then( function (res) {
+                if ( res.status == 200 ) {
+                  self.$alert('注册成功', '提示', {
+                  	type: "success",
+                    confirmButtonText: '确定',
+                    callback: function () {
+                      self.$router.push( "login" )
+                    }
+                  });
 
-            })
+                }
+              } )
           }
         } )
       },

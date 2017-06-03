@@ -11,7 +11,9 @@ module.exports = {
     if ( state.chatting.receiver !== res.body.sender ) {
       state.user.contacts[ res.body.sender ].hasNewMessage = true
     }
-    document.getElementById( "tipSound" ).play()
+    if ( state.sound ) {
+      document.getElementById( "tipSound" ).play()
+    }
   },
   file( state, res, vm ){
 

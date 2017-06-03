@@ -5,23 +5,27 @@
           <img class="photo" :src="photo">
         </div>
       </el-col>
-      <el-col :span="18" style="padding-top: 7px;">
+      <el-col :span="12" style="padding-top: 7px;">
         <el-row >
           <el-col :span="18" >
             <div @click="toChat">{{ name }}</div>
           </el-col>
           <el-col :span="6" style="text-align: center;padding-right:10px">
-            <el-badge  is-dot v-if="hasNewMessage" />
+
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="18" class="signature" >
+          <el-col :span="24" class="signature" style="min-height: 1px">
             <div @click="toChat" >{{ signature }}</div>
           </el-col>
-          <el-col :span="6" style="text-align: center">
-            <span  class="el-icon-menu" @click="toProfile"></span>
-          </el-col>
+
         </el-row>
+      </el-col>
+      <el-col :span="6">
+        <el-col :span="24" style="text-align: center;margin-top: 15px">
+          <el-badge  is-dot v-if="hasNewMessage" style="margin-right: 10px;" />
+          <span   class="el-icon-menu" @click="toProfile"></span>
+        </el-col>
       </el-col>
     </el-row>
 </template>
@@ -72,6 +76,7 @@
             this.$store.state.user.imGroup[ this.receiver ].hasNewMessage = false
           }
 
+
           this.$router.push( "chat" )
         }
       },
@@ -85,4 +90,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+  .el-badge__content.is-dot {
+    margin-top: 8px;
+  }
 </style>

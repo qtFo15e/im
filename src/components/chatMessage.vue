@@ -6,8 +6,6 @@
       <div> {{message.value}} </div>
     </div>
   </div>
-
-
 </template>
 
 <script>

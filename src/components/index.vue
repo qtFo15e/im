@@ -1,7 +1,7 @@
 <template>
   <div v-once class="wrapper" >
     <div class="container">
-      <svg width="1961px" height="470px" viewBox="-797 -97 1961 927" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <svg width="1961px" height="520px" viewBox="-797 -97 1961 927" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <g id="Group" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-797.000000, -97.000000)">
           <polygon id="star21" fill="#F8BF1C" points="15.5 254 6.38932859 258.944272 8.129312 248.472136 0.758623997 241.055728 10.9446643 239.527864 15.5 230 20.0553357 239.527864 30.241376 241.055728 22.870688 248.472136 24.6106714 258.944272"></polygon>
           <polygon id="star16" fill="#F8BF1C" points="1177.5 405 1168.38933 409.944272 1170.12931 399.472136 1162.75862 392.055728 1172.94466 390.527864 1177.5 381 1182.05534 390.527864 1192.24138 392.055728 1184.87069 399.472136 1186.61067 409.944272"></polygon>

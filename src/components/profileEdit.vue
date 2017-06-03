@@ -1,9 +1,8 @@
 <template>
-  <div>
+  <div id="profileEdit">
     <h3>个人信息</h3>
-    <el-form ref="form" :rules="rules" :model="form" label-width="90px">
-      <el-row>
-        <el-col :span="24">
+    <vue-scrollbar style="height: 450px" speed="200">
+        <el-form ref="form" :rules="rules" :model="form" label-width="80px" label-position="right" style="margin: auto">
           <el-form-item
             label="头像">
             <div style="text-align: left">
@@ -13,10 +12,6 @@
               <el-button type="text" @click="uploadPhtoto">上传</el-button>
             </div>
           </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="12">
           <el-form-item
             label="用户名"
             prop="name">
@@ -25,16 +20,14 @@
               placeholder="16个字母或8个汉字之内"></el-input>
           </el-form-item>
           <el-form-item
-            label='年龄'
-            prop="age">
-            <el-select
-              v-model="form.age"
-              placeholder="选择年龄">
-              <el-option
-                v-for="age in formConfigure.ages"
-                :value="age">
-              </el-option>
-            </el-select>
+            label='生日'
+            prop="birthday">
+            <el-date-picker
+              v-model="form.birthday"
+              format="yyyy-MM-dd"
+              type="date"
+              placeholder="选择日期"
+            ></el-date-picker>
           </el-form-item>
           <el-form-item
             prop="province"
@@ -48,29 +41,6 @@
                 :value="key">
               </el-option>
             </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item
-            label='性别'
-            prop="sex">
-            <el-select
-              v-model="form.sex"
-              placeholder="选择性别">
-              <el-option
-                v-for="item in formConfigure.sex"
-                :value="item">
-              </el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item
-            label='生日'
-            prop="birthday">
-            <el-date-picker
-              v-model="form.birthday"
-              type="date"
-              placeholder="选择日期"
-            ></el-date-picker>
           </el-form-item>
           <el-form-item
             prop="city"
@@ -86,27 +56,57 @@
               </el-option>
             </el-select>
           </el-form-item>
-        </el-col>
-      </el-row>
-      <el-form-item
-        label="个人签名"
-        prop="signature">
-        <el-input
-          class="profileTextarea"
-          type="textarea"
-          v-model="form.signature">
-        </el-input>
-      </el-form-item>
-      <el-form-item style="text-align: right">
-        <el-button type="primary" @click="formSubmit">保存</el-button>
-      </el-form-item>
-    </el-form>
+          <el-form-item
+            label='年龄'
+            prop="age">
+            <el-select
+              v-model="form.age"
+              placeholder="选择年龄">
+              <el-option
+                v-for="age in formConfigure.ages"
+                :value="age">
+              </el-option>
+            </el-select>
+          </el-form-item>
+
+          <el-form-item
+            label='性别'
+            prop="sex">
+            <el-select
+              v-model="form.sex"
+              placeholder="选择性别">
+              <el-option
+                v-for="item in formConfigure.sex"
+                :value="item">
+              </el-option>
+            </el-select>
+          </el-form-item>
+
+
+          <el-form-item
+            label="个人签名"
+            prop="signature">
+            <el-input
+              class="profileTextarea"
+              type="textarea"
+              v-model="form.signature">
+            </el-input>
+          </el-form-item>
+          <el-form-item style="text-align: right">
+            <el-button type="primary" @click="formSubmit">保存</el-button>
+          </el-form-item>
+        </el-form>
+
+    </vue-scrollbar>
+
   </div>
 </template>
 
 <script>
   import location from '../assets/location.json'
   import util from  '../../util'
+  var moment = require( 'moment' )
+  import VueScrollbar from 'vue2-scrollbar';
 
   //todo 时间有效性检查
   //todo 省份会卡一下， 猜测SYmbol, 加入拼音？
@@ -117,17 +117,9 @@
       for (let age = 0; age <= 100; age++) {
         ages.push(age)
       }
-
+      var self = this
       return {
-        form: {
-          sex: "",
-          age: "",
-          birthday: "",
-          signature: "",
-          province: "",
-          city:'',
-          name:''
-        },
+        form: self.$store.state.user.profile,
         location,
         photo: "",
         formConfigure: {
@@ -177,16 +169,22 @@
       	var self = this
         this.$refs.form.validate( function ( valid ) {
           if ( valid ) {
-          	self.form.birthday = self.form.birthday.toLocaleDateString()
-          	self.$http.post( '/api/profile/edit' , self.form, function ( res ) {
-              self.$store.state.user.profile = self.form
-            })
+          	self.form.birthday = moment(self.form.birthday).format( "YYYY-MM-DD" );
+          	self.$http.post( '/api/profile/edit' , self.form)
+              .then( function ( res ) {
+                self.$store.state.user.profile = self.form
+                self.$router.push( "profile" )
+              } )
           }
         } )
       },
       uploadPhtoto(){
         this.$router.push( "uploadPhoto" )
       }
+    },
+
+    components: {
+      VueScrollbar
     }
   }
 </script>
@@ -203,6 +201,20 @@
 
   .el-date-editor.el-input {
     width: 100%;
+  }
+
+  #profileEdit .el-form-item {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #profileEdit .el-form-item  .el-select{
+    width: 100%;
+  }
+
+  #profileEdit > div > div > form > div:nth-child(1) > label {
+    position: relative;
+    top: 27px
   }
 </style>
 

@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div style="margin: 20px">
     <h3>查找</h3>
     <el-tabs v-model="active" type="card">
-      <el-tab-pane label="添加" name="userRelation" >
+      <el-tab-pane label="添加好友" name="userRelation" >
         <div style="height: 180px;margin-top: 30px;width: 400px">
           <el-input placeholder="请输入内容" v-model="contacts.value" >
             <el-select style="width: 100px" v-model="contacts.type" slot="prepend" placeholder="请选择">
@@ -22,14 +22,20 @@
             </div>
           </div>
         </div>
-        <div style="height: 180px;width: 400px">
-            <el-input placeholder="请输入内容" v-model="imGroup.value" s>
-              <el-select style="width: 100px" v-model="imGroup.type" slot="prepend" placeholder="请选择">
-                <el-option label="群组ID" value="imGroupId"></el-option>
-                <el-option label="群组名" value="name"></el-option>
-              </el-select>
-              <el-button slot="append" icon="search" @click="searchImGroup"></el-button>
-            </el-input>
+      </el-tab-pane>
+
+      <!--<el-tab-pane label="群组" name="imGroupRelation">-->
+
+      <!--</el-tab-pane>-->
+      <el-tab-pane label="添加群组" name="grouoRelation" >
+        <div style="height: 180px;margin-top: 30px;width: 400px">
+          <el-input placeholder="请输入内容" v-model="imGroup.value" s>
+            <el-select style="width: 100px" v-model="imGroup.type" slot="prepend" placeholder="请选择">
+              <el-option label="群组名" value="name"></el-option>
+              <el-option label="群组ID" value="imGroupId"></el-option>
+            </el-select>
+            <el-button slot="append" icon="search" @click="searchImGroup"></el-button>
+          </el-input>
           <div>
             <detail-list-item
               v-for="item in imGroupArr"
@@ -41,12 +47,8 @@
             </div>
           </div>
         </div>
+
       </el-tab-pane>
-
-      <!--<el-tab-pane label="群组" name="imGroupRelation">-->
-
-      <!--</el-tab-pane>-->
-
       <el-tab-pane label="新建群" name="newImGroup">
         <el-form
           ref="newImGroupForm"
@@ -71,6 +73,7 @@
           </el-form-item>
         </el-form>
       </el-tab-pane>
+
     </el-tabs>
   </div>
 </template>
@@ -90,7 +93,7 @@
           value: ""
         },
         imGroup: {
-    			type:'imGroupId',
+    			type:'name',
           value: ""
         },
         newGroupForm: {
@@ -145,6 +148,11 @@
               body: self.newGroupForm
             }, function ( imGroup ) {
               self.$store.commit( 'addImGroup',imGroup )
+              self.$notify({
+                title: '提示',
+                message: "创建群组成功",
+                type:"success"
+              });
               self.newGroupForm = {
                 name: "",
                 introduction: ""

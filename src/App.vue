@@ -1,5 +1,5 @@
 <template>
-  <div id="app" style="width: 900px;margin: auto;margin-top: 100px">
+  <div id="app" style="width: 1000px;margin: auto;margin-top: 80px">
     <el-dialog
       size="tiny"
       :close-on-click-modal="false"
@@ -13,13 +13,17 @@
     <div v-if="this.$store.state.user.email">
       <el-row>
         <el-col :span="18">
-          <el-card style="width: 600px;height: 515px;border-radius: 15px">
+          <el-card class="mainCard" style="width: 700px;height: 515px;">
             <router-view name="main"></router-view>
           </el-card>
         </el-col>
-        <el-col :span="6">
-          <top style="margin-bottom: 10px"></top>
-          <list></list>
+        <el-col :span="6" >
+          <el-card class="mainCard" style="width: 300px;height: 515px;position: relative">
+            <top style="margin-bottom: 10px"></top>
+            <list></list>
+            <bottom style="position: absolute;bottom: 0;left: 0"></bottom>
+          </el-card>
+
         </el-col>
       </el-row>
     </div>
@@ -30,6 +34,8 @@
 
 import list from './components/list.vue'
 import top from './components/top.vue'
+import bottom from './components/bottom.vue'
+
 
 
 export default {
@@ -37,6 +43,7 @@ export default {
   components: {
     list,
     top,
+    bottom
   },
   created(){
     var self = this
@@ -71,6 +78,10 @@ export default {
 </script>
 
 <style>
+
+html {
+  background-color: #999;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -93,5 +104,19 @@ export default {
 
 textarea {
   resize: none;
+}
+
+.photo{
+  margin-top: 20%;
+  margin-left: 20%;
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+}
+
+
+.mainCard > div {
+  padding: 0;
+  height: 100%;
 }
 </style>

@@ -48,13 +48,18 @@
               </el-col>
             </el-row>
           </el-col>
-
-
         </el-form-item>
         <el-form-item style="text-align: center">
-
           <el-col :span="12" style="margin-top: 6px;text-align: right">
+            <el-button
+              style="margin-right: 31px"
+              size="small"
+              type="text"
+              @click="toSignup">
+              立即注册
+            </el-button>
             <el-checkbox
+              v-show="false"
               v-model="form.savePassword"
             >记住密码</el-checkbox>
           </el-col>
@@ -64,13 +69,7 @@
               type="primary"
               @click="formSubmit"
             >登 录</el-button>
-            <el-button
-              style="margin-right: 31px"
-              size="small"
-              type="text"
-              @click="toSignup">
-              立即注册
-            </el-button>
+
           </el-col>
         </el-form-item>
       </el-form>
@@ -88,7 +87,7 @@
           captcha: "",
           savePassword: true
         },
-        captchaSrc: "http://localhost:3000/api/user/captcha/init",
+        captchaSrc: "/api/user/captcha/init",
         rules: {
           email: [
             {
@@ -151,12 +150,18 @@
                 self.$store.commit( "initUser" , res.body )
 
                 self.$router.push( "index" )
-              } )
+              } ).catch( function ( res ) {
+              self.$notify({
+                title: '提示',
+                message: '登录失败：' + res.body ,
+                type: 'error'
+              });
+            } )
           }
         })
       },
       changeCaptchaImg () {
-        this.captchaSrc = "http://localhost:3000/api/user/captcha/" + Math.random()
+        this.captchaSrc = "/api/user/captcha/" + Math.random()
       },
       toSignup(){
         this.$router.push( 'signup' )
