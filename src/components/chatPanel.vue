@@ -89,8 +89,11 @@
 
       sendMessage(){
       	var self = this
-
-        if ( this.newMs === "" ) return
+        //todo  enter触发的
+        if ( this.newMs === "" || this.newMs === "\n"  ) {
+      		this.newMs = ""
+          return
+        }
 
         this.$store.state.io.emit( "message", {
         	route: self.$store.state.chatting.route,

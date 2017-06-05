@@ -118,8 +118,17 @@
         ages.push(age)
       }
       var self = this
+
       return {
-        form: self.$store.state.user.profile,
+        form: {
+          sex: self.$store.state.user.profile.sex,
+          age: self.$store.state.user.profile.age,
+          birthday: self.$store.state.user.profile.birthday,
+          signature: self.$store.state.user.profile.signature,
+          province: self.$store.state.user.profile.province,
+          city:self.$store.state.user.profile.city,
+          name:self.$store.state.user.profile.name
+        },
         location,
         photo: "",
         formConfigure: {
@@ -161,7 +170,7 @@
         } else {
           return []
         }
-      },
+      }
     },
 
     methods: {

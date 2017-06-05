@@ -21,6 +21,7 @@ module.exports = {
             return io.mongo.collection( "user" ).updateOne( { email: socket.handshake.session.email }, { $push: { imGroup: imGroupId} } )
           } )
           .then( function () {
+            socket.join( imGroupId )
             callback( imGroup )
           } )
       } )

@@ -156,7 +156,7 @@ io.on( "connection" , function ( socket ) {
 
   io.redis = redis
   io.ns = config.myDev.redisNamespace
-  console.log(11111111111111111111)
+
   mongo.then( function ( db ) {
     io.mongo = db
 

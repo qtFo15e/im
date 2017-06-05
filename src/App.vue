@@ -1,5 +1,5 @@
 <template>
-  <div id="app" style="width: 1000px;margin: auto;margin-top: 80px">
+  <div id="app" style="width: 1000px;margin: auto;margin-top: 50px">
     <el-dialog
       size="tiny"
       :close-on-click-modal="false"
